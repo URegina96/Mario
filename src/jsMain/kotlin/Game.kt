@@ -62,11 +62,10 @@ fun drawSprite(sprite: Sprite, i: Int, j: Int) {
 }
 //----------------------------------------------------------------------//
 
-val cloudSprites = listOf(
-    //облако
-    Sprite(TILES_IMAGE, si = 11, sj = 9),
-    Sprite(TILES_IMAGE, si = 12, sj = 9),
-    Sprite(TILES_IMAGE, si = 13, sj = 9),
+val cloudSprites = listOf( //облако
+    Sprite(TILES_IMAGE, si = 0, sj = 20),
+    Sprite(TILES_IMAGE, si = 1, sj = 20),
+    Sprite(TILES_IMAGE, si = 2, sj = 20),
 )
 
 fun drawCloud(i: Int, j: Int) { //облако
@@ -82,8 +81,7 @@ fun drawFloor() { //пол
     }
 }
 
-val bushSprites = listOf(
-    //куст
+val bushSprites = listOf( //куст
     Sprite(TILES_IMAGE, si = 11, sj = 9),
     Sprite(TILES_IMAGE, si = 12, sj = 9),
     Sprite(TILES_IMAGE, si = 13, sj = 9),
@@ -108,27 +106,29 @@ val hillSprites = listOf( //склон
     Sprite(TILES_IMAGE, si = 10, sj = 11),
 )
 
-fun drawHillSection(i: Int, j: Int, size: Int) { //склон
-    drawSprite(hillSprites[0], i, j)
-    for (n in 1..size - 2) {
-        drawSprite(hillSprites[4], i + n, j)
+fun drawHillSection(i: Int, j: Int, size: Int) {
+    for (cell in 1..size) {
+        when (cell) {
+            1 -> drawSprite(hillSprites[0], i, j)
+            size -> drawSprite(hillSprites[2], i + size - 1, j)
+            else -> drawSprite(hillSprites[4], i + cell - 1, j)
+        }
     }
-    drawSprite(hillSprites[2], i + size - 1, j)
 }
 
 fun drawHill(i: Int, height: Int) {
-    for (j in 0 until height) {
-        val size = (height * 2 + 1) - 2 * j
+    for (j in 0..height) {
+        val size = (height - j) * 2 + 1 // calculate section size
         drawHillSection(i + j, j, size)
     }
-    drawSprite(hillSprites[1], i = i + height, j = height)
+    drawSprite(hillSprites[1], i = i + height, j = height) // top
 }
 
 //----------------------------------------------------------------------//
-fun render() {
-    drawCloud(7, 7)//облако
-    drawFloor() //пол
-    drawBush(11, 5) //куст
-//    drawHillSection(0,0,5)//склон
-    drawHill(0, 2)//склон
-}
+//fun render() {
+//    drawCloud(7, 7)//облако
+//    drawFloor() //пол
+//    drawBush(11, 5) //куст
+////    drawHillSection(0,0,5)//склон
+//    drawHill(0, 2)//склон
+//}

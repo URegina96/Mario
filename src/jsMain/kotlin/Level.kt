@@ -8,7 +8,7 @@ class Level {
         }
     }
 
-    fun addFloor() {
+    fun addFloor() {  //пол
         for (j in -1 downTo -2) {
             for (i in 0..15) {
                 entities += Entity(i, j, floorSprite)
@@ -16,7 +16,7 @@ class Level {
         }
     }
 
-    fun addBush(i: Int, size: Int) {
+    fun addBush(i: Int, size: Int) {  //куст
         entities += Entity(i, 0, bushSprites[0])
         for (n in i + 1..i + size - 2) {
             entities += Entity(n, 0, bushSprites[1]) // middle
@@ -24,7 +24,7 @@ class Level {
         entities += Entity(i + size - 1, 0, bushSprites[2]) // right side
     }
 
-    fun addCloud(i: Int, j: Int, size: Int) {
+    fun addCloud(i: Int, j: Int, size: Int) { //облако
         entities += Entity(i, j, cloudSprites[0]) // left side
         for (n in i + 1..i + 1 + size) {
             entities += Entity(n, j, cloudSprites[1]) // middle
@@ -42,7 +42,7 @@ class Level {
         }
     }
 
-    fun addHill(i: Int, height: Int) {
+    fun addHill(i: Int, height: Int) {  //склон
         for (j in 0..height) {
             val size = 3 + height - j * 2 // calculate section size
             drawHillSection(i + j, j, size)
