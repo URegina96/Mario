@@ -68,18 +68,18 @@ val cloudSprites = listOf( //облако
     Sprite(TILES_IMAGE, si = 2, sj = 20),
 )
 
-fun drawCloud(i: Int, j: Int) { //облако
-    drawSprite(cloudSprite, i, j)
-}
+//fun drawCloud(i: Int, j: Int) { //облако
+//    drawSprite(cloudSprite, i, j)
+//}
 
 val floorSprite = Sprite(TILES_IMAGE, 0, 0)
-fun drawFloor() { //пол
-    for (j in -1 downTo -2) {
-        for (i in 0..15) {
-            drawSprite(floorSprite, i, j)
-        }
-    }
-}
+//fun drawFloor() { //пол
+//    for (j in -1 downTo -2) {
+//        for (i in 0..15) {
+//            drawSprite(floorSprite, i, j)
+//        }
+//    }
+//}
 
 val bushSprites = listOf( //куст
     Sprite(TILES_IMAGE, si = 11, sj = 9),
@@ -87,15 +87,15 @@ val bushSprites = listOf( //куст
     Sprite(TILES_IMAGE, si = 13, sj = 9),
 )
 
-fun drawBush(i: Int, length: Int) {
-    drawSprite(bushSprites[0], i = 11, j = 0) // left side
-    for (n in 11..14) {
-        drawSprite(bushSprites[1], i = 12, j = 0) // middle
-        drawSprite(bushSprites[1], i = 13, j = 0) // middle
-        drawSprite(bushSprites[1], i = 14, j = 0) // middle
-    }
-    drawSprite(bushSprites[2], i = 15, j = 0) // right side
-}
+//fun drawBush(i: Int, length: Int) {
+//    drawSprite(bushSprites[0], i = 11, j = 0) // left side
+//    for (n in 11..14) {
+//        drawSprite(bushSprites[1], i = 12, j = 0) // middle
+//        drawSprite(bushSprites[1], i = 13, j = 0) // middle
+//        drawSprite(bushSprites[1], i = 14, j = 0) // middle
+//    }
+//    drawSprite(bushSprites[2], i = 15, j = 0) // right side
+//}
 
 val hillSprites = listOf( //склон
     Sprite(TILES_IMAGE, si = 8, sj = 10),
@@ -106,23 +106,23 @@ val hillSprites = listOf( //склон
     Sprite(TILES_IMAGE, si = 10, sj = 11),
 )
 
-fun drawHillSection(i: Int, j: Int, size: Int) {
-    for (cell in 1..size) {
-        when (cell) {
-            1 -> drawSprite(hillSprites[0], i, j)
-            size -> drawSprite(hillSprites[2], i + size - 1, j)
-            else -> drawSprite(hillSprites[4], i + cell - 1, j)
-        }
-    }
-}
-
-fun drawHill(i: Int, height: Int) {
-    for (j in 0..height) {
-        val size = (height - j) * 2 + 1 // calculate section size
-        drawHillSection(i + j, j, size)
-    }
-    drawSprite(hillSprites[1], i = i + height, j = height) // top
-}
+//fun drawHillSection(i: Int, j: Int, size: Int) {
+//    for (cell in 1..size) {
+//        when (cell) {
+//            1 -> drawSprite(hillSprites[0], i, j)
+//            size -> drawSprite(hillSprites[2], i + size - 1, j)
+//            else -> drawSprite(hillSprites[4], i + cell - 1, j)
+//        }
+//    }
+//}
+//
+//fun drawHill(i: Int, height: Int) {
+//    for (j in 0..height) {
+//        val size = (height - j) * 2 + 1 // calculate section size
+//        drawHillSection(i + j, j, size)
+//    }
+//    drawSprite(hillSprites[1], i = i + height, j = height) // top
+//}
 
 //----------------------------------------------------------------------//
 //fun render() {
