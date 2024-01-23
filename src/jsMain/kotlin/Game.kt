@@ -22,7 +22,14 @@ fun main() {
 
         sourceImage.src = TILES_IMAGE
         sourceImage.onload = {
-            render()
+            with(level) {
+                addFloor()
+                val lengthBush = 5
+                addBush(15 - lengthBush + 1, lengthBush)
+                addCloud(7, 8, 2)
+                addHill(0,2)
+                render()
+            }
         }
         Unit
     }
