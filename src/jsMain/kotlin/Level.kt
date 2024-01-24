@@ -32,7 +32,7 @@ class Level {
         entities += Entity(i + size + 2, j, cloudSprites[2]) // right side
     }
 
-    private fun drawHillSection(i: Int, j: Int, size: Int) {
+    private fun drawHillSection(i: Int, j: Int, size: Int) {//склон
         for (cell in 1..size) {
             when (cell) {
                 1 -> entities += Entity(i, j, hillSprites[0])
@@ -44,7 +44,7 @@ class Level {
 
     fun addHill(i: Int, height: Int) {  //склон
         for (j in 0..height) {
-            val size = 3 + height - j * 2 // calculate section size
+            val size = 3 + height - j * 2+1 // calculate section size
             drawHillSection(i + j, j, size)
         }
         drawSprite(hillSprites[1], i = i + height, j = height) // top
