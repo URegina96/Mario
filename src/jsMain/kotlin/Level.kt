@@ -1,13 +1,28 @@
+// Level - уровень. Уровень содержит  коллекцию объектов и может нарисовать их в нужном месте - функция render
+// Теперь  вместо того, чтобы рисовать какой-то объект или его часть, нужно добавлять  в коллекцию  entities += Entity(x, y, sprite)
+
+const val CANVAS_WIDTH = 762.0
+const val CANVAS_HEIGHT = 720.0
+const val BACKGROUND_COLOR = "#7974FF"
 class Level {
 
     private var entities = setOf<Entity>()
+    var windowX = 0 // начальное положение окна
 
-    fun render() {
+    fun render() { //функция render -  может нарисовать коллекцию объектов  в нужном месте
         for (entity in entities) {
-            drawSprite(entity.sprite, entity.x, entity.y)
+            if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
+                drawSprite(entity.sprite, entity.x - windowX, entity.y)
+            }
+            /*
+             Если объект выходит за границы окна то рисовать его - лишнее дело.
+             Поэтому можно также добавить проверку, что координата правого края объекта  больше,
+             чем левый край окна (windowX), а координата левого края объекта меньше, чем правый край окна  (windowX + 16)
+             */
         }
     }
 
+    //----------------------------------------------------игровые элементы---------------------------------------------------------//
     fun addFloor() {  //пол
         for (j in -1 downTo -2) {
             for (i in 0..15) {
