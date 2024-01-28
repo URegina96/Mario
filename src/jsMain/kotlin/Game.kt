@@ -70,25 +70,25 @@ fun drawSprite(sprite: Sprite, i: Int, j: Int) { // статичные элем�
 }
 
 //----------------------------------------------------игровые элементы---------------------------------------------------------//
-
-val cloudSprites = listOf( //облако
-    Sprite(TILES_IMAGE, si = 0, sj = 20),
-    Sprite(TILES_IMAGE, si = 1, sj = 20),
-    Sprite(TILES_IMAGE, si = 2, sj = 20),
-)
-val floorSprite = Sprite(TILES_IMAGE, 0, 0) //пол
-
-val bushSprites = listOf( //куст
-    Sprite(TILES_IMAGE, si = 11, sj = 9),
-    Sprite(TILES_IMAGE, si = 12, sj = 9),
-    Sprite(TILES_IMAGE, si = 13, sj = 9),
-)
-val hillSprites = listOf( //склон
-    Sprite(TILES_IMAGE, si = 8, sj = 10),
-    Sprite(TILES_IMAGE, si = 9, sj = 10),
-    Sprite(TILES_IMAGE, si = 10, sj = 10),
-    Sprite(TILES_IMAGE, si = 8, sj = 11),
-    Sprite(TILES_IMAGE, si = 9, sj = 11),
-    Sprite(TILES_IMAGE, si = 10, sj = 11),
-)
-
+//
+//val cloudSprites = listOf( //облако
+//    Sprite(TILES_IMAGE, si = 0, sj = 20),
+//    Sprite(TILES_IMAGE, si = 1, sj = 20),
+//    Sprite(TILES_IMAGE, si = 2, sj = 20),
+//)
+//val floorSprite = Sprite(TILES_IMAGE, 0, 0) //пол
+//
+//val bushSprites = listOf( //куст
+//    Sprite(TILES_IMAGE, si = 11, sj = 9),
+//    Sprite(TILES_IMAGE, si = 12, sj = 9),
+//    Sprite(TILES_IMAGE, si = 13, sj = 9),
+//)
+//val hillSprites = listOf( //склон
+//    Sprite(TILES_IMAGE, si = 8, sj = 10),
+//    Sprite(TILES_IMAGE, si = 9, sj = 10),
+//    Sprite(TILES_IMAGE, si = 10, sj = 10),
+//    Sprite(TILES_IMAGE, si = 8, sj = 11),
+//    Sprite(TILES_IMAGE, si = 9, sj = 11),
+//    Sprite(TILES_IMAGE, si = 10, sj = 11),
+//)
+//
