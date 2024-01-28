@@ -29,16 +29,16 @@ fun main() {  // ... инициализация и отрисовка игров
                 render()
             }
             //-----------------------------------------
-            document.addEventListener("keydown", { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
-                val keyboardEvent = event as KeyboardEvent
-                when (keyboardEvent.code) {
-                    // смещение окна вправо
-                    "ArrowLeft" -> level.windowX -= 0.3
-                    // смещение окна влево
-                    "ArrowRight" -> level.windowX += 0.3
-                }
-                render()
-            })
+//            document.addEventListener("keydown", { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
+//                val keyboardEvent = event as KeyboardEvent
+//                when (keyboardEvent.code) {
+//                    // смещение окна вправо
+//                    "ArrowLeft" -> level.windowX -= 0.3
+//                    // смещение окна влево
+//                    "ArrowRight" -> level.windowX += 0.3
+//                }
+//                render()
+//            })
             //-----------------------------------------
         }
         Unit

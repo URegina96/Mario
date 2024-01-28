@@ -6,13 +6,15 @@ const val CANVAS_HEIGHT = 720.0
 const val BACKGROUND_COLOR = "#7974FF"
 typealias IntPair = Pair<Int, Int>
 typealias IntTriple = Pair<Pair<Int, Int>, Int>
-class Level(    val floor: List<IntRange> = emptyList(),
+class Level(    //отвечает за то как часто используются  спрайты  на уровне
+                val floor: List<IntRange> = emptyList(),
                 val bushes: List<IntPair> = emptyList(),
                 val hills: List<IntPair> = emptyList(),
                 val clouds: List<IntTriple> = emptyList(),
                 val pipes: List<IntPair> = emptyList(),
                 val bricks: List<IntTriple> = emptyList(),  // Дорожки из кирпичей  i x j x длина
                 val pandoras: List<IntPair> = emptyList(),   // Ящик Пандоры - это блок с вопросом
+                //отвечает за внешний вид, т.е. под какими индаксами спрайты берутся   (замена кода "игровые элементы" из Game.kt)
                 val forwardSteps: List<IntTriple> = emptyList(),
                 val backwardSteps: List<IntTriple> = emptyList(),
                 val cloudSprites: List<Sprite> = emptyList(),
