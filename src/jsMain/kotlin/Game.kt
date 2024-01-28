@@ -7,7 +7,6 @@ import org.w3c.dom.events.KeyboardEvent
 
 val sourceImage = Image()
 lateinit var context: CanvasRenderingContext2D
-var level: Level = Level()
 var windowX = 0 // начальное положение окна
 private var entities = setOf<Entity>()
 
@@ -21,8 +20,8 @@ fun main() {  // ... инициализация и отрисовка игров
 
         sourceImage.src = TILES_IMAGE
         sourceImage.onload = {
-            with(level) {
-                addFloor()
+            with(level) { //отрисвока элементов уровня
+                addFloor(i=1, j =1)
                 val lengthBush = 5
                 addBush(15 - lengthBush + 1, lengthBush)
                 addCloud(7, 8, 2)
