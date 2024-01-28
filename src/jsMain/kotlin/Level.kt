@@ -14,10 +14,18 @@ class Level(    val floor: List<IntRange> = emptyList(),
                 val bricks: List<IntTriple> = emptyList(),
                 val pandoras: List<IntPair> = emptyList(),
                 val forwardSteps: List<IntTriple> = emptyList(),
-                val backwardSteps: List<IntTriple> = emptyList(),) {
+                val backwardSteps: List<IntTriple> = emptyList(),
+                val cloudSprites: List<Sprite> = emptyList(),
+                val bushSprites: List<Sprite> = emptyList(),
+                val hillSprites: List<Sprite> = emptyList(),
+                val pipeSprites: List<Sprite> = emptyList(),
+                val floorSprite: Sprite,
+//                val brickSprite: Sprite,
+//                val wallSprite: Sprite,
+    ) {
 
     private var entities = setOf<Entity>()
-    var windowX = 0 // начальное положение окна
+    var windowX: Double = 0.0 // начальное положение окна
     init {
         floor.forEach { range ->
             for (j in -1 downTo -2) {
@@ -120,4 +128,11 @@ val level = Level(
     forwardSteps = listOf(134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1),
 
     backwardSteps = listOf(140 x 4 x 0, 155 x 4 x 0),
+    floorSprite = Sprite.tile(0,0),
+
+    bushSprites = Sprite.bush(11,9),
+
+    cloudSprites = Sprite.cloud(0,20),
+
+    hillSprites = Sprite.hill(8,10),
 )

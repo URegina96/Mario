@@ -33,9 +33,9 @@ fun main() {  // ... инициализация и отрисовка игров
                 val keyboardEvent = event as KeyboardEvent
                 when (keyboardEvent.code) {
                     // смещение окна вправо
-                    "ArrowLeft" -> level.windowX -= 1
+                    "ArrowLeft" -> level.windowX -= 0.3
                     // смещение окна влево
-                    "ArrowRight" -> level.windowX += 1
+                    "ArrowRight" -> level.windowX += 0.3
                 }
                 render()
             })
