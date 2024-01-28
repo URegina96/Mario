@@ -60,11 +60,7 @@ class Level(    //отвечает за то как часто использу�
 
     //----------------------------------------------------игровые элементы---------------------------------------------------------//
     fun addFloor(i: Int, j: Int) {  //пол
-        for (j in -1 downTo -2) {
-            for (i in 0..15) {
-                entities += Entity(i, j, floorSprite)
-            }
-        }
+        entities += Entity(i, j, floorSprite)
     }
 
     fun addBush(i: Int, size: Int) {  //куст
@@ -94,8 +90,8 @@ class Level(    //отвечает за то как часто использу�
     }
 
     fun addHill(i: Int, height: Int) {  //склон
-        for (j in 0..height) {
-            val size = 3 + height - j * 2+1 // calculate section size
+        for (j in 0 until height) {
+            val size = (height - j) * 2 + 1 // calculate section size
             drawHillSection(i + j, j, size)
         }
         drawSprite(hillSprites[1], i = i + height, j = height) // top
@@ -130,6 +126,7 @@ val level = Level(
     forwardSteps = listOf(134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), // шаги вперед
 
     backwardSteps = listOf(140 x 4 x 0, 155 x 4 x 0), // шаги назад
+
     floorSprite = Sprite.tile(0,0), // пол Спрайт
 
     bushSprites = Sprite.bush(11,9), // кустовые спрайты
