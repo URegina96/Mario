@@ -31,5 +31,8 @@ data class Sprite(var src: String, val si: Int, val sj: Int, val w: Int = 1, val
             tile(si , sj+1), //0|11
             tile(si +1, sj+1), //1|11
         )
+        fun bricks(si:Int,sj: Int)=listOf( //кирпичики
+            tile(si, sj),
+        )
     }
 }

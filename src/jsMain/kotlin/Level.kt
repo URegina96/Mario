@@ -22,7 +22,7 @@ class Level(    //отвечает за то как часто использу�
                 val hillSprites: List<Sprite> = emptyList(),
                 val pipeSprites: List<Sprite> = emptyList(),
                 val floorSprite: Sprite,
-//                val brickSprite: Sprite,
+                val brickSprite: List<Sprite> = emptyList(),
 //                val wallSprite: Sprite,
     ) {
 
@@ -52,6 +52,10 @@ class Level(    //отвечает за то как часто использу�
         }
         pipes.forEach { (i, j) -> // трубы
             addPipes(i, j)
+        }
+        bricks.forEach {(indices, height)->  // кирпичи
+            val (i, j) = indices
+            addBricks(i, j, height)
         }
     }
     fun render() { //функция render -  может нарисовать коллекцию объектов  в нужном месте
@@ -108,6 +112,13 @@ class Level(    //отвечает за то как часто использу�
         entities += Entity(i, 1, pipeSprites[0])  // left side - top
         entities += Entity(i +1, 1, pipeSprites[1]) // right side - top
     }
+    fun addBricks(i: Int, j: Int,height: Int){ // кирпичи
+        for (n in 0 until height){
+            when(n){
+                else -> entities += Entity(i+n, j, brickSprite[0])
+            }
+        }
+    }
 }
 
 //----------------------------------------------------настройка уровня---------------------------------------------------------//
@@ -123,7 +134,7 @@ val level = Level(
         171 x 8 x 3, 180 x 9 x 2, 200 x 8 x 1
     ),
 
-    bricks = listOf( 20 x 3 x 5, 77 x 3 x 3, 80 x 7 x 8, 91 x 7 x 4, 94 x 3 x 1, // кирпичи
+    bricks = listOf( 3 x 5 x 5, 20 x 3 x 7,77 x 3 x 3, 80 x 7 x 8, 91 x 7 x 4, 94 x 3 x 1, // кирпичи
         117 x 3 x 1, 100 x 3 x 2,  120 x 7 x 4,  128 x 7 x 4,  129 x 3 x 2,  168 x 3 x 4
     ),
 
@@ -150,4 +161,6 @@ val level = Level(
     hillSprites = Sprite.hill(8,10), // холмовые спрайты
 
     pipeSprites = Sprite.pipe(0, 10), // трубные спрайты
+
+    brickSprite = Sprite.bricks(1,0), // кирпичные спрайты
 )
