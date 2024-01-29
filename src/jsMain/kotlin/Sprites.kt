@@ -34,5 +34,8 @@ data class Sprite(var src: String, val si: Int, val sj: Int, val w: Int = 1, val
         fun bricks(si:Int,sj: Int)=listOf( //кирпичики
             tile(si, sj),
         )
+        fun pandoras(si:Int,sj: Int)=listOf( // ящик с вопросом
+            tile(si, sj),
+        )
     }
 }
