@@ -50,6 +50,9 @@ class Level(    //отвечает за то как часто использу�
         hills.forEach { (i, size) -> // склон
             addHill(i, size)
         }
+        pipes.forEach { (i, j) -> // трубы
+            addPipes(i, j)
+        }
     }
     fun render() { //функция render -  может нарисовать коллекцию объектов  в нужном месте
         for (entity in entities) {
@@ -97,6 +100,14 @@ class Level(    //отвечает за то как часто использу�
         }
         drawSprite(hillSprites[1], i = i + height, j = height) // top
     }
+
+    fun addPipes(i: Int,j: Int) { // труба
+        entities += Entity(i, 0, pipeSprites[2])  // left side - leg
+        entities += Entity(i +1, 0, pipeSprites[3]) // right side - leg
+
+        entities += Entity(i, 1, pipeSprites[0])  // left side - top
+        entities += Entity(i +1, 1, pipeSprites[1]) // right side - top
+    }
 }
 
 //----------------------------------------------------настройка уровня---------------------------------------------------------//
@@ -118,12 +129,14 @@ val level = Level(
 
     hills = listOf(0 x 2, 16 x 1, 48 x 2, 64 x 1, 96 x 2, 111 x 1, 144 x 2, 160 x 1, 192 x 2), //холмы  холм/склон
 
-    pipes = listOf(28 x 2, 38 x 3, 46 x 4, 163 x 2, 179 x 2), // трубы
+    pipes = listOf(10 x 2, 21 x 3, 24 x 3, 38 x 3, 46 x 4, 163 x 2, 179 x 2), // трубы
 
     pandoras = listOf( // ящик с вопросом
         16 x 3, 21 x 3, 22 x 7, 23 x 3, 78 x 3, 94 x 7, 105 x 3,
         108 x 3, 108 x 7, 111 x 3, 129 x 7, 130 x 7, 170 x 3
     ),
+    //----------------------------------------------------координаты спрайтов---------------------------------------------------------//
+
     forwardSteps = listOf(134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), // шаги вперед
 
     backwardSteps = listOf(140 x 4 x 0, 155 x 4 x 0), // шаги назад
@@ -135,4 +148,6 @@ val level = Level(
     cloudSprites = Sprite.cloud(0,20), // облачные спрайты
 
     hillSprites = Sprite.hill(8,10), // холмовые спрайты
+
+    pipeSprites = Sprite.pipe(0, 10), // трубные спрайты
 )
