@@ -1,31 +1,30 @@
-// Level - уровень. Уровень содержит  коллекцию объектов и может нарисовать их в нужном месте - функция render
-// Теперь  вместо того, чтобы рисовать какой-то объект или его часть, нужно добавлять  в коллекцию  entities += Entity(x, y, sprite)
-
 const val CANVAS_WIDTH = 762.0
 const val CANVAS_HEIGHT = 720.0
 const val BACKGROUND_COLOR = "#7974FF"
 typealias IntPair = Pair<Int, Int>
 typealias IntTriple = Pair<Pair<Int, Int>, Int>
-class Level(    //отвечает за то как часто используются  спрайты  на уровне
-                val floor: List<IntRange> = emptyList(),
-                val bushes: List<IntPair> = emptyList(),
-                val hills: List<IntPair> = emptyList(),
-                val clouds: List<IntTriple> = emptyList(),
-                val pipes: List<IntPair> = emptyList(),
-                val bricks: List<IntTriple> = emptyList(),  // Дорожки из кирпичей  i x j x длина
-                val pandoras: List<IntPair> = emptyList(),   // Ящик Пандоры - это блок с вопросом
-                //отвечает за внешний вид, т.е. под какими индаксами спрайты берутся   (замена кода "игровые элементы" из Game.kt)
-                val forwardSteps: List<IntTriple> = emptyList(),
-                val backwardSteps: List<IntTriple> = emptyList(),
-                val cloudSprites: List<Sprite> = emptyList(),
-                val bushSprites: List<Sprite> = emptyList(),
-                val hillSprites: List<Sprite> = emptyList(),
-                val pipeSprites: List<Sprite> = emptyList(),
-                val floorSprite: Sprite,
-                val brickSprite: List<Sprite> = emptyList(),
-                val pandorasSprite: List<Sprite> = emptyList(),
+
+class Level(
+    //отвечает за то как часто используются  спрайты  на уровне
+    val floor: List<IntRange> = emptyList(),
+    val bushes: List<IntPair> = emptyList(),
+    val hills: List<IntPair> = emptyList(),
+    val clouds: List<IntTriple> = emptyList(),
+    val pipes: List<IntPair> = emptyList(),
+    val bricks: List<IntTriple> = emptyList(),  // Дорожки из кирпичей  i x j x длина
+    val pandoras: List<IntPair> = emptyList(),   // Ящик Пандоры - это блок с вопросом
+    //отвечает за внешний вид, т.е. под какими индаксами спрайты берутся   (замена кода "игровые элементы" из Game.kt)
+    val forwardSteps: List<IntTriple> = emptyList(),
+    val backwardSteps: List<IntTriple> = emptyList(),
+    val cloudSprites: List<Sprite> = emptyList(),
+    val bushSprites: List<Sprite> = emptyList(),
+    val hillSprites: List<Sprite> = emptyList(),
+    val pipeSprites: List<Sprite> = emptyList(),
+    val floorSprite: Sprite,
+    val brickSprite: List<Sprite> = emptyList(),
+    val pandorasSprite: List<Sprite> = emptyList(),
 //                val wallSprite: Sprite,
-    ) {
+) {
 
     private var entities = setOf<Entity>()
     var windowX: Double = 0.0 // начальное положение окна
@@ -54,14 +53,15 @@ class Level(    //отвечает за то как часто использу�
         pipes.forEach { (i, j) -> // трубы
             addPipes(i, j)
         }
-        bricks.forEach {(indices, height)->  // кирпичи
+        bricks.forEach { (indices, height) ->  // кирпичи
             val (i, j) = indices
             addBricks(i, j, height)
         }
-        pandoras.forEach { (i,j)->  // ящик с вопросом
-            addPandoras(i,j)
+        pandoras.forEach { (i, j) ->  // ящик с вопросом
+            addPandoras(i, j)
         }
     }
+
     fun render() { //функция render -  может нарисовать коллекцию объектов  в нужном месте
         for (entity in entities) {
             if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
@@ -109,63 +109,45 @@ class Level(    //отвечает за то как часто использу�
         drawSprite(hillSprites[1], i = i + height, j = height) // top
     }
 
-    fun addPipes(i: Int,j: Int) { // труба
+    fun addPipes(i: Int, j: Int) { // труба
         entities += Entity(i, 0, pipeSprites[2])  // left side - leg
-        entities += Entity(i +1, 0, pipeSprites[3]) // right side - leg
+        entities += Entity(i + 1, 0, pipeSprites[3]) // right side - leg
 
         entities += Entity(i, 1, pipeSprites[0])  // left side - top
-        entities += Entity(i +1, 1, pipeSprites[1]) // right side - top
+        entities += Entity(i + 1, 1, pipeSprites[1]) // right side - top
     }
-    fun addBricks(i: Int, j: Int,height: Int){ // кирпичи
-        for (n in 0 until height){
-            when(n){
-                else -> entities += Entity(i+n, j, brickSprite[0])
+
+    fun addBricks(i: Int, j: Int, height: Int) { // кирпичи
+        for (n in 0 until height) {
+            when (n) {
+                else -> entities += Entity(i + n, j, brickSprite[0])
             }
         }
     }
-    fun addPandoras(i:Int,j: Int){  // ящик с вопросом
+
+    fun addPandoras(i: Int, j: Int) {  // ящик с вопросом
         entities += Entity(i, j, pandorasSprite[0])
     }
 }
 
 //----------------------------------------------------настройка уровня---------------------------------------------------------//
-infix fun <A,B>A.x(b: B) = Pair(this,b)
+infix fun <A, B> A.x(b: B) = Pair(this, b)
 val level = Level(
     floor = listOf(0..68, 71..85, 89..152, 155..212), // пол
-
     bushes = listOf(11 x 3, 23 x 1, 59 x 3, 89 x 2, 137 x 2, 71 x 1, 106 x 3, 118 x 1, 167 x 1), //курсты
-
-    clouds = listOf( // облака
-        7 x 8 x 1, 19 x 9 x 1, 27 x 8 x 3, 36 x 9 x 2, 56 x 8 x 1, 67 x 9 x 1, 75 x 8 x 3,
-        87 x 9 x 1, 103 x 9 x 1, 123 x 8 x 3, 132 x 9 x 2, 152 x 8 x 1, 163 x 9 x 1,
-        171 x 8 x 3, 180 x 9 x 2, 200 x 8 x 1
-    ),
-
-    bricks = listOf( 3 x 5 x 5, 20 x 3 x 7,77 x 3 x 3, 80 x 7 x 8, 91 x 7 x 4, 94 x 3 x 1, // кирпичи
-        117 x 3 x 1, 100 x 3 x 2,  120 x 7 x 4,  128 x 7 x 4,  129 x 3 x 2,  168 x 3 x 4
-    ),
-
+    clouds = listOf(7 x 8 x 1, 19 x 9 x 1, 27 x 8 x 3, 36 x 9 x 2, 56 x 8 x 1, 67 x 9 x 1, 75 x 8 x 3, 87 x 9 x 1, 103 x 9 x 1, 123 x 8 x 3, 132 x 9 x 2, 152 x 8 x 1, 163 x 9 x 1, 171 x 8 x 3, 180 x 9 x 2, 200 x 8 x 1), // облака
+    bricks = listOf(3 x 5 x 5, 20 x 3 x 7, 77 x 3 x 3, 80 x 7 x 8, 91 x 7 x 4, 94 x 3 x 1, 117 x 3 x 1, 100 x 3 x 2, 120 x 7 x 4, 128 x 7 x 4, 129 x 3 x 2, 168 x 3 x 4), // кирпичи
     hills = listOf(0 x 2, 16 x 1, 48 x 2, 64 x 1, 96 x 2, 111 x 1, 144 x 2, 160 x 1, 192 x 2), //холмы  холм/склон
-
     pipes = listOf(10 x 2, 21 x 3, 24 x 3, 38 x 3, 46 x 4, 163 x 2, 179 x 2), // трубы
-
-    pandoras = listOf( 5 x 5, 16 x 3, 21 x 3, 22 x 7, 23 x 3, 78 x 3, 94 x 7, 105 x 3, 108 x 3, 108 x 7, 111 x 3, 129 x 7, 130 x 7, 170 x 3),// ящик с вопросом
+    pandoras = listOf(5 x 5, 16 x 3, 21 x 3, 22 x 7, 23 x 3, 78 x 3, 94 x 7, 105 x 3, 108 x 3, 108 x 7, 111 x 3, 129 x 7, 130 x 7, 170 x 3),// ящик с вопросом
     //----------------------------------------------------координаты спрайтов---------------------------------------------------------//
-
     forwardSteps = listOf(134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), // шаги вперед
-
     backwardSteps = listOf(140 x 4 x 0, 155 x 4 x 0), // шаги назад
-
-    floorSprite = Sprite.tile(0,0), // пол Спрайт
-
-    bushSprites = Sprite.bush(11,9), // кустовые спрайты
-
-    cloudSprites = Sprite.cloud(0,20), // облачные спрайты
-
-    hillSprites = Sprite.hill(8,10), // холмовые спрайты
-
+    floorSprite = Sprite.tile(0, 0), // пол Спрайт
+    bushSprites = Sprite.bush(11, 9), // кустовые спрайты
+    cloudSprites = Sprite.cloud(0, 20), // облачные спрайты
+    hillSprites = Sprite.hill(8, 10), // холмовые спрайты
     pipeSprites = Sprite.pipe(0, 10), // трубные спрайты
-
-    brickSprite = Sprite.bricks(1,0), // кирпичные спрайты
-    pandorasSprite = Sprite.pandoras(24,0),  // ящик с вопросом
+    brickSprite = Sprite.bricks(1, 0), // кирпичные спрайты
+    pandorasSprite = Sprite.pandoras(24, 0),  // ящик с вопросом
 )
