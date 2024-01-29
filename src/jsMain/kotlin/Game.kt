@@ -21,11 +21,11 @@ fun main() {  // ... инициализация и отрисовка игров
         sourceImage.src = TILES_IMAGE
         sourceImage.onload = {
             with(level) { //отрисвока элементов уровня
-                addFloor(i=1, j =1)
-                val lengthBush = 5
-                addBush(15 - lengthBush + 1, lengthBush)
-                addCloud(7, 8, 2)
-                addHill(0,2)
+//                addFloor(i=1, j =1)
+//                val lengthBush = 5
+//                addBush(15 - lengthBush + 1, lengthBush)
+//                addCloud(7, 8, 2)
+//                addHill(0,2)
                 render()
             }
             //-----------------------------------------

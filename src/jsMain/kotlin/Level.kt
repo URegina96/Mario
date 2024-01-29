@@ -28,25 +28,26 @@ class Level(    //отвечает за то как часто использу�
 
     private var entities = setOf<Entity>()
     var windowX: Double = 0.0 // начальное положение окна
+
     init {
-        floor.forEach { range ->
+        floor.forEach { range -> // пол
             for (j in -1 downTo -2) {
                 for (i in range) {
-                    addFloor(i,j)
+                    addFloor(i, j)
                 }
             }
         }
 
-        clouds.forEach { (indices, size) ->
+        clouds.forEach { (indices, size) -> // облако
             val (i, j) = indices
             addCloud(i, j, size)
         }
 
-        bushes.forEach { (i, size) ->
+        bushes.forEach { (i, size) ->  // куст
             addBush(i, size)
         }
 
-        hills.forEach { (i, size) ->
+        hills.forEach { (i, size) -> // склон
             addHill(i, size)
         }
     }
