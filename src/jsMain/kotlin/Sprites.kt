@@ -44,5 +44,13 @@ data class Sprite(var src: String, val si: Int, val sj: Int, val w: Int = 1, val
             // ящик с вопросом
             tile(si, sj),
         )
+        fun forwardSteps(si: Int, sj: Int) = listOf(
+            //  отдельные списки для ступеней вперед
+            tile(si, sj),
+        )
+        fun backwardStepsSteps(si: Int, sj: Int) = listOf(
+            //  отдельные списки для ступеней назад
+            tile(si, sj),
+        )
     }
 }

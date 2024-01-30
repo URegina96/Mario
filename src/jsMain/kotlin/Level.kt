@@ -14,8 +14,8 @@ class Level(
     val bricks: List<IntTriple> = emptyList(),  // Дорожки из кирпичей  i x j x длина
     val pandoras: List<IntPair> = emptyList(),   // Ящик Пандоры - это блок с вопросом
     //отвечает за внешний вид, т.е. под какими индаксами спрайты берутся   (замена кода "игровые элементы" из Game.kt)
-    val forwardSteps: List<IntTriple> = emptyList(),
-    val backwardSteps: List<IntTriple> = emptyList(),
+    val forwardSteps: List<IntTriple> = emptyList(), // отдельные списки для ступеней вперед
+    val backwardSteps: List<IntTriple> = emptyList(), // отдельные списки для ступеней назад
     val cloudSprites: List<Sprite> = emptyList(),
     val bushSprites: List<Sprite> = emptyList(),
     val hillSprites: List<Sprite> = emptyList(),
@@ -23,6 +23,8 @@ class Level(
     val floorSprite: Sprite,
     val brickSprite: List<Sprite> = emptyList(),
     val pandorasSprite: List<Sprite> = emptyList(),
+    val forwardStepsSprite: List<Sprite> = emptyList(),
+    val backwardStepsSteps: List<Sprite> = emptyList(),
 //                val wallSprite: Sprite,
 ) {
 
@@ -53,12 +55,20 @@ class Level(
         pipes.forEach { (i, j) -> // трубы
             addPipes(i, j)
         }
-        bricks.forEach { (indices, height) ->  // кирпичи
+        bricks.forEach { (indices, length) ->  // кирпичи
             val (i, j) = indices
-            addBricks(i, j, height)
+            addBricks(i, j, length)
         }
         pandoras.forEach { (i, j) ->  // ящик с вопросом
             addPandoras(i, j)
+        }
+        forwardSteps.forEach { (indices, height) ->   // отдельные списки для ступеней вперед
+            val (i, j) = indices
+            addForwardSteps(i, j, height)
+        }
+        backwardSteps.forEach { (indices, height) ->  // отдельные списки для ступеней назад
+            val (i, j) = indices
+            addBackwardSteps(i, j, height)
         }
     }
 
@@ -117,8 +127,8 @@ class Level(
         entities += Entity(i + 1, 1, pipeSprites[1]) // right side - top
     }
 
-    fun addBricks(i: Int, j: Int, height: Int) { // кирпичи
-        for (n in 0 until height) {
+    fun addBricks(i: Int, j: Int, length: Int) { // кирпичи
+        for (n in 0 until length) {
             when (n) {
                 else -> entities += Entity(i + n, j, brickSprite[0])
             }
@@ -127,6 +137,12 @@ class Level(
 
     fun addPandoras(i: Int, j: Int) {  // ящик с вопросом
         entities += Entity(i, j, pandorasSprite[0])
+    }
+
+    fun addForwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней вперед
+    }
+
+    fun addBackwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней назад
     }
 }
 
@@ -140,9 +156,9 @@ val level = Level(
     hills = listOf(0 x 2, 16 x 1, 48 x 2, 64 x 1, 96 x 2, 111 x 1, 144 x 2, 160 x 1, 192 x 2), //холмы  холм/склон
     pipes = listOf(10 x 2, 21 x 3, 24 x 3, 38 x 3, 46 x 4, 163 x 2, 179 x 2), // трубы
     pandoras = listOf(5 x 5, 16 x 3, 21 x 3, 22 x 7, 23 x 3, 78 x 3, 94 x 7, 105 x 3, 108 x 3, 108 x 7, 111 x 3, 129 x 7, 130 x 7, 170 x 3),// ящик с вопросом
+    forwardSteps = listOf(134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), //  отдельные списки для ступеней вперед
+    backwardSteps = listOf(140 x 4 x 0, 155 x 4 x 0), //  отдельные списки для ступеней назад
     //----------------------------------------------------координаты спрайтов---------------------------------------------------------//
-    forwardSteps = listOf(134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), // шаги вперед
-    backwardSteps = listOf(140 x 4 x 0, 155 x 4 x 0), // шаги назад
     floorSprite = Sprite.tile(0, 0), // пол Спрайт
     bushSprites = Sprite.bush(11, 9), // кустовые спрайты
     cloudSprites = Sprite.cloud(0, 20), // облачные спрайты
@@ -150,4 +166,6 @@ val level = Level(
     pipeSprites = Sprite.pipe(0, 10), // трубные спрайты
     brickSprite = Sprite.bricks(1, 0), // кирпичные спрайты
     pandorasSprite = Sprite.pandoras(24, 0),  // ящик с вопросом
+    forwardStepsSprite = Sprite.forwardSteps(0, 3),  //  отдельные списки для ступеней вперед
+    backwardStepsSteps = Sprite.forwardSteps(0, 5),  //  отдельные списки для ступеней назад
 )
