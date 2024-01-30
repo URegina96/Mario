@@ -30,6 +30,7 @@ class Level(
 
     private var entities = setOf<Entity>()
     var windowX: Double = 0.0 // начальное положение окна
+    private var gameTime: Double = Double.NaN
 
     init {
         floor.forEach { range -> // пол
@@ -143,6 +144,13 @@ class Level(
     }
 
     fun addBackwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней назад
+    }
+    //----------------------------------------------------настройка уровня---------------------------------------------------------//
+    fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
+        val dt = (if (gameTime.isNaN()) 0.0 else timestamp - gameTime) / 1000
+        gameTime = timestamp
+
+        windowX += dt * 3
     }
 }
 

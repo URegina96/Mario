@@ -44,6 +44,12 @@ fun main() {  // ... инициализация и отрисовка игров
             }
             Unit
         }
+    window.requestAnimationFrame(::update)
+}
+fun update(timestamp: Double){ //  Эта функция будет обновлять состояние игры и показывать обновленное изображение и снова запрашивать  следующий кадр анимации
+    level.update(timestamp)
+    render()
+    window.requestAnimationFrame(::update)
 }
 
 fun render() { //функция render -  может нарисовать коллекцию объектов  в нужном месте
