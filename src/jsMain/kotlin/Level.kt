@@ -24,7 +24,7 @@ class Level(
     val brickSprite: List<Sprite> = emptyList(),
     val pandorasSprite: List<Sprite> = emptyList(),
     val forwardStepsSprite: List<Sprite> = emptyList(),
-    val backwardStepsSteps: List<Sprite> = emptyList(),
+    val backwardStepsSprite: List<Sprite> = emptyList(),
 //                val wallSprite: Sprite,
 ) {
 
@@ -164,8 +164,8 @@ val level = Level(
     hills = listOf(0 x 2, 16 x 1, 48 x 2, 64 x 1, 96 x 2, 111 x 1, 144 x 2, 160 x 1, 192 x 2), //холмы  холм/склон
     pipes = listOf(10 x 2, 21 x 3, 24 x 3, 38 x 3, 46 x 4, 163 x 2, 179 x 2), // трубы
     pandoras = listOf(5 x 5, 16 x 3, 21 x 3, 22 x 7, 23 x 3, 78 x 3, 94 x 7, 105 x 3, 108 x 3, 108 x 7, 111 x 3, 129 x 7, 130 x 7, 170 x 3),// ящик с вопросом
-    forwardSteps = listOf(134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), //  отдельные списки для ступеней вперед
-    backwardSteps = listOf(140 x 4 x 0, 155 x 4 x 0), //  отдельные списки для ступеней назад
+    forwardSteps = listOf(5 x 4 x 0, 134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), //  отдельные списки для ступеней вперед
+    backwardSteps = listOf(15 x 4 x 0, 140 x 4 x 0, 155 x 4 x 0), //  отдельные списки для ступеней назад
     //----------------------------------------------------координаты спрайтов---------------------------------------------------------//
     floorSprite = Sprite.tile(0, 0), // пол Спрайт
     bushSprites = Sprite.bush(11, 9), // кустовые спрайты
@@ -175,5 +175,5 @@ val level = Level(
     brickSprite = Sprite.bricks(1, 0), // кирпичные спрайты
     pandorasSprite = Sprite.pandoras(24, 0),  // ящик с вопросом
     forwardStepsSprite = Sprite.forwardSteps(0, 3),  //  отдельные списки для ступеней вперед
-    backwardStepsSteps = Sprite.forwardSteps(0, 5),  //  отдельные списки для ступеней назад
+    backwardStepsSprite = Sprite.backwardSteps(0, 5),  //  отдельные списки для ступеней назад
 )

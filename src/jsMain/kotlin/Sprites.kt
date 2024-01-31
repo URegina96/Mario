@@ -48,7 +48,7 @@ data class Sprite(var src: String, val si: Int, val sj: Int, val w: Int = 1, val
             //  отдельные списки для ступеней вперед
             tile(si, sj),
         )
-        fun backwardStepsSteps(si: Int, sj: Int) = listOf(
+        fun backwardSteps(si: Int, sj: Int) = listOf(
             //  отдельные списки для ступеней назад
             tile(si, sj),
         )
