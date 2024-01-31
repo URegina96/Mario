@@ -1,3 +1,6 @@
+import KeyboardInput.isLeftPressed
+import KeyboardInput.isRightPressed
+
 const val CANVAS_WIDTH = 762.0
 const val CANVAS_HEIGHT = 720.0
 const val BACKGROUND_COLOR = "#7974FF"
@@ -149,8 +152,11 @@ class Level(
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
         val dt = (if (gameTime.isNaN()) 0.0 else timestamp - gameTime) / 1000
         gameTime = timestamp
-
-        windowX += dt * 3
+        if (isLeftPressed()){
+            windowX += dt * 0.3
+        }else if(isRightPressed()){
+            windowX -= dt * 0.3
+        }
     }
 }
 
