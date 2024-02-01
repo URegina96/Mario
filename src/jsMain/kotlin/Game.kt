@@ -59,7 +59,14 @@ fun main() {  // ... инициализация и отрисовка игров
             }
             Unit
         }
-    window.requestAnimationFrame(::update)
+    Images.load(
+        TILES_IMAGE,
+        HERO_FORWARD_IMAGE,
+        HERO_BACKWARD_IMAGE
+    ) {
+        window.requestAnimationFrame(::update)
+    }
+
 }
 fun update(timestamp: Double){ //  Эта функция будет обновлять состояние игры и показывать обновленное изображение и снова запрашивать  следующий кадр анимации
     level.update(timestamp)
@@ -83,6 +90,7 @@ fun drawSprite(
     y: Double
 ) { // функция drawSprite, которая рисует спрайт от точки с координатами (x, y), нарисовать  изображения объектов в 2D игре, которые накладываются поверх  фонового изображения
     context.drawImage(
+//        Images[sprite.src],
         sourceImage,
         sx = sprite.si * CELL_SIZE + 1 / 3.0,
         sy = sprite.sj * CELL_SIZE + 1 / 3.0,
