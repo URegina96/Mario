@@ -152,6 +152,16 @@ class Level(
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
         val dt = (if (gameTime.isNaN()) 0.0 else timestamp - gameTime) / 1000
         gameTime = timestamp
+        val screenWidth = 16.0 // Ширина экрана
+        val levelEnd = 213.0 - screenWidth // Координата окончания последнего элемента
+
+        windowX += dt * 0.3
+
+        if (windowX >= levelEnd || windowX <= 0) {
+            // Если достигнут конец уровня или начало уровня, меняем направление движения
+            windowX -= dt * 0.3 // Откатываем изменение позиции
+            windowX *= -1 // Меняем направление движения
+        }
         if (isLeftPressed()){
             windowX += dt * 0.3
         }else if(isRightPressed()){
