@@ -90,7 +90,7 @@ fun drawSprite(
     y: Double
 ) { // функция drawSprite, которая рисует спрайт от точки с координатами (x, y), нарисовать  изображения объектов в 2D игре, которые накладываются поверх  фонового изображения
     context.drawImage(
-//        Images[sprite.src],
+        Images[sprite.src],
         sourceImage,
         sx = sprite.si * CELL_SIZE + 1 / 3.0,
         sy = sprite.sj * CELL_SIZE + 1 / 3.0,
