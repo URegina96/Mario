@@ -27,6 +27,7 @@ fun main() {  // ... инициализация и отрисовка игров
                 with(level) { //отрисвока элементов уровня
                     render()
                 }
+                level.addHeroRight()
                 //-----------------------------------------
                 document.addEventListener(
                     "keydown",
@@ -57,15 +58,15 @@ fun main() {  // ... инициализация и отрисовка игров
                     })
                 //-----------------------------------------
             }
-            Unit
-        }
-    Images.load(
-        TILES_IMAGE,
-        HERO_FORWARD_IMAGE,
-        HERO_BACKWARD_IMAGE
-    ) {
-        window.requestAnimationFrame(::update)
-    }
+            Images.load(
+                TILES_IMAGE,
+                HERO_FORWARD_IMAGE,
+                HERO_BACKWARD_IMAGE
+            ) {
+                window.requestAnimationFrame(::update)
+            }
+}
+    Unit
 
 }
 fun update(timestamp: Double){ //  Эта функция будет обновлять состояние игры и показывать обновленное изображение и снова запрашивать  следующий кадр анимации
@@ -84,14 +85,10 @@ fun render() { //функция render -  может нарисовать кол
 const val CELL_SIZE =
     16.0 //Все изображения объектов вписываются в квадратную секту - как в тетради в клетку. Размеры клетки на исходной картинке - 16 х 16  пикселей, в игре увеличим размеры в три раза. Весь экран - это 15 клеток в высоту и 16 клеток в ширину
 
-fun drawSprite(
-    sprite: Sprite,
-    x: Double,
-    y: Double
-) { // функция drawSprite, которая рисует спрайт от точки с координатами (x, y), нарисовать  изображения объектов в 2D игре, которые накладываются поверх  фонового изображения
+fun drawSprite(sprite: Sprite, x: Double, y: Double) { // функция drawSprite, которая рисует спрайт от точки с координатами (x, y), нарисовать  изображения объектов в 2D игре, которые накладываются поверх  фонового изображения
     context.drawImage(
-        Images[sprite.src],
-        sourceImage,
+        Images[TILES_IMAGE],
+//        sourceImage,
         sx = sprite.si * CELL_SIZE + 1 / 3.0,
         sy = sprite.sj * CELL_SIZE + 1 / 3.0,
         sw = sprite.w * CELL_SIZE - 2 / 3.0,

@@ -1,9 +1,11 @@
-import org.w3c.dom.Image
+
 
 const val TILES_IMAGE = "sprites/tiles.png"
 const val HERO_FORWARD_IMAGE = "sprites/player.png"
 const val HERO_BACKWARD_IMAGE = "sprites/playerl.png"
 val cloudSprite = Sprite(TILES_IMAGE, si = 0, sj = 20, w = 3, h = 2)
+val heroRightSprite = Sprite(HERO_FORWARD_IMAGE, si = 5, sj = 2)
+val heroLeftSprite = Sprite(HERO_BACKWARD_IMAGE, si = 5, sj = 2)
 
 //sj -спрайт вниз, si -спрайт вбок
 data class Sprite(var src: String, val si: Int, val sj: Int, val w: Int = 1, val h: Int = 1) {
@@ -56,27 +58,5 @@ data class Sprite(var src: String, val si: Int, val sj: Int, val w: Int = 1, val
             //  отдельные списки для ступеней назад
             tile(si, sj),
         )
-    }
-}
-
-object Images {
-    operator fun get(src: String) = images[src]!!
-
-    private val images = mutableMapOf<String, Image?>()
-
-    private fun isReady() = images.values.all { it != null }
-
-    fun load(vararg imagesSrc: String, onload: () -> Unit) {
-        imagesSrc.forEach { src ->
-            val image = Image()
-            images[src] = null
-            image.src = src
-            image.onload = {
-                images[src] = image
-                if (isReady()) {
-                    onload()
-                }
-            }
-        }
     }
 }

@@ -148,8 +148,11 @@ class Level(
 
     fun addBackwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней назад
     }
+    fun addHeroRight(){entities += Entity(4, 12, heroRightSprite)} //добавление пероснажа вправо
+//    fun addHeroLeft(){entities += Entity(4, 12, heroLeftSprite)} //добавление пероснажа влево
     //----------------------------------------------------настройка уровня---------------------------------------------------------//
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
+        val hero = Hero()
         val dt = (if (gameTime.isNaN()) 0.0 else timestamp - gameTime) / 1000
         gameTime = timestamp
         val screenWidth = 16.0 // Ширина экрана
@@ -163,9 +166,11 @@ class Level(
             windowX *= -1 // Меняем направление движения
         }
         if (isLeftPressed()){
+            hero.moveRight() // чтобы при нажатии клавиш вправо изображение Марио перемещалось вправо соответственно
             windowX += dt * 0.3
         }else if(isRightPressed()){
             windowX -= dt * 0.3
+            hero.moveLeft()  // чтобы при нажатии клавиш влево изображение Марио перемещалось влево соответственно
         }
     }
 }
