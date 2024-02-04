@@ -27,7 +27,7 @@ fun main() {  // ... инициализация и отрисовка игров
                 with(level) { //отрисвока элементов уровня
                     render()
                 }
-                level.addHeroRight()
+                level.addHero() // после загрузки картинок и отрисовки всех деталей добавляется герой
                 //-----------------------------------------
                 document.addEventListener(
                     "keydown",
@@ -87,7 +87,7 @@ const val CELL_SIZE =
 
 fun drawSprite(sprite: Sprite, x: Double, y: Double) { // функция drawSprite, которая рисует спрайт от точки с координатами (x, y), нарисовать  изображения объектов в 2D игре, которые накладываются поверх  фонового изображения
     context.drawImage(
-        Images[TILES_IMAGE],
+        Images[sprite.src],
 //        sourceImage,
         sx = sprite.si * CELL_SIZE + 1 / 3.0,
         sy = sprite.sj * CELL_SIZE + 1 / 3.0,

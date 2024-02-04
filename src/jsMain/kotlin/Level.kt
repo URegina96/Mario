@@ -148,8 +148,8 @@ class Level(
 
     fun addBackwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней назад
     }
-    fun addHeroRight(){entities += Entity(4, 12, heroRightSprite)} //добавление пероснажа вправо
-//    fun addHeroLeft(){entities += Entity(4, 12, heroLeftSprite)} //добавление пероснажа влево
+    fun addHero(){entities += Entity(0, 0, heroSprite)} //добавление пероснажа направленнего вправо (где стоИт со старта)
+//    fun addHeroLeft(){entities += Entity(0, 0, heroLeftSprite)} //добавление пероснажа влево (где стоИт со старта)
     //----------------------------------------------------настройка уровня---------------------------------------------------------//
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
         val hero = Hero()
@@ -158,7 +158,7 @@ class Level(
         val screenWidth = 16.0 // Ширина экрана
         val levelEnd = 213.0 - screenWidth // Координата окончания последнего элемента
 
-        windowX += dt * 0.3
+        windowX += dt * 0.01
 
         if (windowX >= levelEnd || windowX <= 0) {
             // Если достигнут конец уровня или начало уровня, меняем направление движения
