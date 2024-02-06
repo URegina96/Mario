@@ -26,20 +26,6 @@ fun main() {  // ... инициализация и отрисовка игров
                     render()
                 }
                 level.addHero() // после загрузки картинок и отрисовки всех деталей добавляется герой
-                //-----------------------------------------
-//                document.addEventListener(
-//                    "keydown",
-//                    { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
-//                        val keyboardEvent = event as KeyboardEvent
-//                        when (keyboardEvent.code) {
-//                            // смещение окна вправо
-//                            "ArrowLeft" -> level.windowX -= 0.3
-//                            // смещение окна влево
-//                            "ArrowRight" -> level.windowX += 0.3
-//                        }
-//                        render()
-//                    })
-                //-----------------------------------------
             }
             Images.load(
                 TILES_IMAGE,
@@ -54,11 +40,13 @@ fun main() {  // ... инициализация и отрисовка игров
 }
 fun update(timestamp: Double){ //  Эта функция будет обновлять состояние игры и показывать обновленное изображение и снова запрашивать  следующий кадр анимации
     level.update(timestamp)
-    render()
+    rendeir()
     window.requestAnimationFrame(::update)
 }
-
-fun render() { //функция render -  может нарисовать коллекцию объектов  в нужном месте
+const val CANVAS_WIDTH = 762.0
+const val CANVAS_HEIGHT = 720.0
+const val BACKGROUND_COLOR = "#7974FF"
+fun rendeir() { // После того как картинка загружена, можно нарисовать сцену - для этого добавили функцию render
     context.clearRect(0.0, 0.0, CANVAS_WIDTH, CANVAS_HEIGHT) // Чтобы в начале функции render очистить окно
     context.fillStyle = BACKGROUND_COLOR
     context.fillRect(0.0, 0.0, CANVAS_WIDTH, CANVAS_HEIGHT)

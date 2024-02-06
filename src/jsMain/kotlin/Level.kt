@@ -1,9 +1,8 @@
 import KeyboardInput.isLeftPressed
 import KeyboardInput.isRightPressed
+import kotlinx.browser.document
+import org.w3c.dom.events.KeyboardEvent
 
-const val CANVAS_WIDTH = 762.0
-const val CANVAS_HEIGHT = 720.0
-const val BACKGROUND_COLOR = "#7974FF"
 typealias IntPair = Pair<Int, Int>
 typealias IntTriple = Pair<Pair<Int, Int>, Int>
 
@@ -76,7 +75,7 @@ class Level(
         }
     }
 
-    fun render() { //функция render -  может нарисовать коллекцию объектов  в нужном месте
+    fun render() { // Уровень содержит  коллекцию объектов и может нарисовать их в нужном месте - функция render
         for (entity in entities) {
             if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
                 drawSprite(entity.sprite, entity.x - windowX, entity.y)
@@ -148,8 +147,8 @@ class Level(
 
     fun addBackwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней назад
     }
-    fun addHero(){entities += Entity(0, 0, heroSprite)} //добавление пероснажа направленнего вправо (где стоИт со старта)
-//    fun addHeroLeft(){entities += Entity(0, 0, heroLeftSprite)} //добавление пероснажа влево (где стоИт со старта)
+    fun addHero() { entities += Entity(0, 0, heroSprite) } //добавление пероснажа направленнего вправо (где стоИт со старта)
+
     //----------------------------------------------------настройка уровня---------------------------------------------------------//
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
         val hero = Hero()
@@ -165,13 +164,18 @@ class Level(
             windowX -= dt * 0.3 // Откатываем изменение позиции
             windowX *= -1 // Меняем направление движения
         }
-        if (isLeftPressed()){
-            hero.moveRight() // чтобы при нажатии клавиш вправо изображение Марио перемещалось вправо соответственно
-            windowX += dt * 0.3
-        }else if(isRightPressed()){
-            windowX -= dt * 0.3
-            hero.moveLeft()  // чтобы при нажатии клавиш влево изображение Марио перемещалось влево соответственно
-        }
+        document.addEventListener(
+            "keydown",
+            { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
+                val keyboardEvent = event as KeyboardEvent
+                when (keyboardEvent.code) {
+                    // смещение окна вправо
+                    "ArrowLeft" -> level.windowX -= 0.3
+                    // смещение окна влево
+                    "ArrowRight" -> level.windowX += 0.3
+                }
+                rendeir()
+            })
     }
 }
 
