@@ -7,9 +7,7 @@ import org.w3c.dom.events.KeyboardEvent
 
 val sourceImage = Image()
 lateinit var context: CanvasRenderingContext2D
-var windowX = 0 // начальное положение окна
 private var entities = setOf<Entity>()
-var pressedKeys: Set<String> = emptySet()
 fun main() {  // ... инициализация и отрисовка игровой сцены
     window.onload =
         { //Между вызовом main и моментом, когда document будет готов, есть задержка по времени. window.onload - это колбэк - код, который будет исполнен после того, как происходит какое-то событие
@@ -29,33 +27,18 @@ fun main() {  // ... инициализация и отрисовка игров
                 }
                 level.addHero() // после загрузки картинок и отрисовки всех деталей добавляется герой
                 //-----------------------------------------
-                document.addEventListener(
-                    "keydown",
-                    { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
-                        val keyboardEvent = event as KeyboardEvent
-                        when (keyboardEvent.code) {
-                            // смещение окна вправо
-                            "ArrowLeft" -> level.windowX -= 0.3
-                            // смещение окна влево
-                            "ArrowRight" -> level.windowX += 0.3
-                        }
-                        fun initKeyboardListeners(){
-                            document.addEventListener("keydown", { event ->
-                                val keyboardEvent = event as KeyboardEvent
-                                pressedKeys += keyboardEvent.code
-                            })
-
-                            document.addEventListener("keyup", { event ->
-                                val keyboardEvent = event as KeyboardEvent
-                                pressedKeys -= keyboardEvent.code
-                            })
-
-                            window.addEventListener("blur", {
-                                pressedKeys = emptySet()
-                            })
-                        }
-                        render()
-                    })
+//                document.addEventListener(
+//                    "keydown",
+//                    { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
+//                        val keyboardEvent = event as KeyboardEvent
+//                        when (keyboardEvent.code) {
+//                            // смещение окна вправо
+//                            "ArrowLeft" -> level.windowX -= 0.3
+//                            // смещение окна влево
+//                            "ArrowRight" -> level.windowX += 0.3
+//                        }
+//                        render()
+//                    })
                 //-----------------------------------------
             }
             Images.load(
