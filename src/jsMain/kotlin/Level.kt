@@ -33,6 +33,7 @@ class Level(
     private var entities = setOf<Entity>()
     var windowX: Double = 0.0 // начальное положение окна
     private var gameTime: Double = Double.NaN
+    val hero = Hero()
 
     init {
         floor.forEach { range -> // пол
@@ -81,6 +82,7 @@ class Level(
                 drawSprite(entity.sprite, entity.x - windowX, entity.y)
             }
         }
+        drawSprite(heroSprite,hero.x, hero.y)
     }
 
     //----------------------------------------------------игровые элементы---------------------------------------------------------//
@@ -151,7 +153,6 @@ class Level(
 
     //----------------------------------------------------настройка уровня---------------------------------------------------------//
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
-        val hero = Hero()
         val dt = (if (gameTime.isNaN()) 0.0 else timestamp - gameTime) / 1000
         gameTime = timestamp
         val screenWidth = 16.0 // Ширина экрана
@@ -169,10 +170,8 @@ class Level(
             { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
                 val keyboardEvent = event as KeyboardEvent
                 when (keyboardEvent.code) {
-                    // смещение окна вправо
-                    "ArrowLeft" -> level.windowX -= 0.3
-                    // смещение окна влево
-                    "ArrowRight" -> level.windowX += 0.3
+                    "ArrowLeft" -> hero.moveLeft()
+                    "ArrowRight" -> hero.moveRight()
                 }
                 rendeir()
             })
