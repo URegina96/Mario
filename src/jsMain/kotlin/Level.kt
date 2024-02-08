@@ -1,5 +1,3 @@
-import KeyboardInput.isLeftPressed
-import KeyboardInput.isRightPressed
 import kotlinx.browser.document
 import org.w3c.dom.events.KeyboardEvent
 
@@ -82,7 +80,11 @@ class Level(
                 drawSprite(entity.sprite, entity.x - windowX, entity.y)
             }
         }
-        drawSprite(heroSprite,hero.x, hero.y)
+        drawSprite(hero.sprite,hero.x, hero.y)
+            /*
+            drawSprite(heroSprite, hero.x, hero.y)` - это вызов функции `drawSprite`, которая принимает три параметра: `heroSprite` (спрайт героя), `hero.x` (координата по оси X) и `hero.y` (координата по оси Y)
+            Эта функция отвечает за отображение спрайта на экране в указанных координатах
+             */
     }
 
     //----------------------------------------------------игровые элементы---------------------------------------------------------//
@@ -149,7 +151,7 @@ class Level(
 
     fun addBackwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней назад
     }
-    fun addHero() { entities += Entity(0, 0, heroSprite) } //добавление пероснажа направленнего вправо (где стоИт со старта)
+    fun addHero() { entities += Entity(hero.x, hero.y, hero.sprite) } //добавление пероснажа направленнего вправо (где стоИт со старта)
 
     //----------------------------------------------------настройка уровня---------------------------------------------------------//
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
