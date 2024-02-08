@@ -78,9 +78,9 @@ class Level(
         for (entity in entities) {
             if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
                 drawSprite(entity.sprite, entity.x - windowX, entity.y)
+                drawSprite(hero.sprite,hero.x, hero.y)
             }
         }
-        drawSprite(hero.sprite,hero.x, hero.y)
             /*
             drawSprite(heroSprite, hero.x, hero.y)` - это вызов функции `drawSprite`, которая принимает три параметра: `heroSprite` (спрайт героя), `hero.x` (координата по оси X) и `hero.y` (координата по оси Y)
             Эта функция отвечает за отображение спрайта на экране в указанных координатах
@@ -151,8 +151,6 @@ class Level(
 
     fun addBackwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней назад
     }
-    fun addHero() { entities += Entity(hero.x, hero.y, hero.sprite) } //добавление пероснажа направленнего вправо (где стоИт со старта)
-
     //----------------------------------------------------настройка уровня---------------------------------------------------------//
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
         val dt = (if (gameTime.isNaN()) 0.0 else timestamp - gameTime) / 1000
@@ -167,16 +165,16 @@ class Level(
             windowX -= dt * 0.3 // Откатываем изменение позиции
             windowX *= -1 // Меняем направление движения
         }
-        document.addEventListener(
-            "keydown",
-            { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
-                val keyboardEvent = event as KeyboardEvent
-                when (keyboardEvent.code) {
-                    "ArrowLeft" -> hero.moveLeft()
-                    "ArrowRight" -> hero.moveRight()
-                }
-                rendeir()
-            })
+//        document.addEventListener(
+//            "keydown",
+//            { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
+//                val keyboardEvent = event as KeyboardEvent
+//                when (keyboardEvent.code) {
+//                    "ArrowLeft" -> hero.moveLeft()
+//                    "ArrowRight" -> hero.moveRight()
+//                }
+//                rendeir()
+//            })
     }
 }
 

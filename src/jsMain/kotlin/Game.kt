@@ -23,9 +23,18 @@ fun main() {  // ... инициализация и отрисовка игров
             sourceImage.src = TILES_IMAGE
             sourceImage.onload = {
                 with(level) { //отрисвока элементов уровня
-                    render()
+                    document.addEventListener(
+                        "keydown",
+                        { event ->
+                            val keyboardEvent = event as KeyboardEvent
+                            when (keyboardEvent.code) {
+                                "ArrowLeft" -> hero.moveLeft()
+                                "ArrowRight" -> hero.moveRight()
+                            }
+                            render() // вызов метода render() после обновления положения героя
+                        }
+                    )
                 }
-                level.addHero() // после загрузки картинок и отрисовки всех деталей добавляется герой
             }
             Images.load(
                 TILES_IMAGE,
