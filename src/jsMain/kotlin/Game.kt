@@ -52,18 +52,18 @@ fun update(timestamp: Double){ //  Эта функция будет обновл
     rendeir()
     window.requestAnimationFrame(::update)
 }
-const val CANVAS_WIDTH = 762.0
+const val CELL_SIZE = 16.0 //Все изображения объектов вписываются в квадратную секту - как в тетради в клетку. Размеры клетки на исходной картинке - 16 х 16  пикселей, в игре увеличим размеры в три раза. Весь экран - это 15 клеток в высоту и 16 клеток в ширину
+const val CANVAS_WIDTH = 768.0
 const val CANVAS_HEIGHT = 720.0
 const val BACKGROUND_COLOR = "#7974FF"
+const val SCALE = 3.0
+const val LEVEL_LENGTH = 213-(CANVAS_WIDTH/(CELL_SIZE*SCALE))
 fun rendeir() { // После того как картинка загружена, можно нарисовать сцену - для этого добавили функцию render
     context.clearRect(0.0, 0.0, CANVAS_WIDTH, CANVAS_HEIGHT) // Чтобы в начале функции render очистить окно
     context.fillStyle = BACKGROUND_COLOR
     context.fillRect(0.0, 0.0, CANVAS_WIDTH, CANVAS_HEIGHT)
     level.render()
 }
-
-const val CELL_SIZE =
-    16.0 //Все изображения объектов вписываются в квадратную секту - как в тетради в клетку. Размеры клетки на исходной картинке - 16 х 16  пикселей, в игре увеличим размеры в три раза. Весь экран - это 15 клеток в высоту и 16 клеток в ширину
 
 fun drawSprite(sprite: Sprite, x: Double, y: Double) { // функция drawSprite, которая рисует спрайт от точки с координатами (x, y), нарисовать  изображения объектов в 2D игре, которые накладываются поверх  фонового изображения
     context.drawImage(

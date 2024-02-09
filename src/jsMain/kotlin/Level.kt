@@ -78,7 +78,7 @@ class Level(
         for (entity in entities) {
             if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
                 drawSprite(entity.sprite, entity.x - windowX, entity.y)
-                drawSprite(hero.sprite,hero.x, hero.y)
+                drawSprite(hero.sprite,hero.x-windowX, hero.y)
             }
         }
             /*
@@ -155,26 +155,25 @@ class Level(
     fun update(timestamp: Double) { //  на каждом кадре чуть сдвигать видимое окно уровня
         val dt = (if (gameTime.isNaN()) 0.0 else timestamp - gameTime) / 1000
         gameTime = timestamp
-        val screenWidth = 16.0 // Ширина экрана
-        val levelEnd = 213.0 - screenWidth // Координата окончания последнего элемента
+//        val screenWidth = 16.0 // Ширина экрана
+//        val levelEnd = 213.0 - screenWidth // Координата окончания последнего элемента
 
         windowX += dt * 0.01
 
-        if (windowX >= levelEnd || windowX <= 0) {
-            // Если достигнут конец уровня или начало уровня, меняем направление движения
-            windowX -= dt * 0.3 // Откатываем изменение позиции
-            windowX *= -1 // Меняем направление движения
+//        if (windowX >= levelEnd || windowX <= 0) {
+//            // Если достигнут конец уровня или начало уровня, меняем направление движения
+//            windowX -= dt * 0.3 // Откатываем изменение позиции
+//            windowX *= -1 // Меняем направление движения
+//        }
+        if (hero.x < 0) hero.x = 0.0
+        if (hero.x > (LEVEL_LENGTH - 1)) hero.x = (LEVEL_LENGTH - 1).toDouble()
+        if (hero.x >= windowX + 5) {
+            windowX = hero.x-5
+        } else if (hero.x <= windowX + 3) {
+            windowX = hero.x-3
         }
-//        document.addEventListener(
-//            "keydown",
-//            { event -> // У KeyboardEvent есть свойство code - код нажатой клавиши
-//                val keyboardEvent = event as KeyboardEvent
-//                when (keyboardEvent.code) {
-//                    "ArrowLeft" -> hero.moveLeft()
-//                    "ArrowRight" -> hero.moveRight()
-//                }
-//                rendeir()
-//            })
+        if (windowX < 0) windowX = 0.0
+        if (windowX > (LEVEL_LENGTH - 16)) windowX = (LEVEL_LENGTH - 16).toDouble()
     }
 }
 
