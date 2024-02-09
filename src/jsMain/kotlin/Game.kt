@@ -28,8 +28,8 @@ fun main() {  // ... инициализация и отрисовка игров
                         { event ->
                             val keyboardEvent = event as KeyboardEvent
                             when (keyboardEvent.code) {
-                                "ArrowLeft" -> hero.moveLeft()
-                                "ArrowRight" -> hero.moveRight()
+                                "ArrowLeft" -> hero.move(false)
+                                "ArrowRight" -> hero.move(true)
                             }
                             render() // вызов метода render() после обновления положения героя
                         }
