@@ -30,6 +30,7 @@ fun main() {  // ... инициализация и отрисовка игров
                             when (keyboardEvent.code) {
                                 "ArrowLeft" -> hero.move(false)
                                 "ArrowRight" -> hero.move(true)
+                                "KeyZ" -> hero.jump()
                             }
                             render() // вызов метода render() после обновления положения героя
                         }

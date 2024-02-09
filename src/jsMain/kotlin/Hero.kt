@@ -5,6 +5,7 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
     // При смене направления  нужно менять спрайт, а точнее исходное изображение в спрайте
     private var isWalking = false
     private var isFacingForward = true
+    private var isJumping = false
     private val walkingAnimation = SpriteAnimation(sprites.toList().subList(1, 4), fps = 5.0)
 
     fun move(forward: Boolean) {
@@ -18,10 +19,18 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
     fun notMove() {
         isWalking = false
     }
+    fun jump() {
+        if (y == 0.0) {
+            isJumping = true
+            vY = 14.5
+            sprite.src = sprites[5].src
+        }
+    }
 
     override val sprite: Sprite
         get() = when {
             isWalking -> walkingAnimation.sprite
+            isJumping -> sprites[5]
             else -> sprites[0]
         }.apply {
             src = if (isFacingForward) HERO_FORWARD_IMAGE else HERO_BACKWARD_IMAGE
