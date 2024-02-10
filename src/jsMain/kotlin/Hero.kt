@@ -9,7 +9,7 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
     /* В классе `Entity` свойство `isWalking` объявлено как `open val`, что означает, что оно доступно для переопределения в подклассах и имеет тип `Boolean`.
     Чтобы исправить ошибки,нужно добавить модификатор `override` перед свойством `isWalking` в классе `Hero` и оставить его доступность и тип такими же, как в классе `Entity`
      */
-    override var isWalking: Boolean = false
+    override var isWalking: Boolean = true
         get() = super.isWalking
     private var isFacingForward = true
     private var isJumping = false
