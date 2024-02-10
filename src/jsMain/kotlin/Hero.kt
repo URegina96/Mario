@@ -35,7 +35,7 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
     }
     fun jump() {
         if (y == 0.0) {
-            isJumping = true
+            isJumping = false
             vY = 14.5
             sprite.src = sprites[5].src
         }
