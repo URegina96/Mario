@@ -17,10 +17,6 @@ open class Entity(var x: Double, var y: Double, val sprites: List<Sprite>) {
 
     open val sprite: Sprite
         get() = sprites[0]
-    open val isStanding: Boolean // понять, стоит ли Марио можно так
-        get() = y == 0.0
-    open val isWalking: Boolean // понять, что Марио идет
-        get() = isStanding && abs(vX) > 0
 
     open fun update(dt: Double) {
         vX += aX * dt

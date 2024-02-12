@@ -1,3 +1,5 @@
+import KeyboardInput.isLeftPressed
+import KeyboardInput.isRightPressed
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.CanvasRenderingContext2D
@@ -28,8 +30,8 @@ fun main() {  // ... инициализация и отрисовка игров
                         { event ->
                             val keyboardEvent = event as KeyboardEvent
                             when (keyboardEvent.code) {
-                                "ArrowLeft" -> hero.move(false)
-                                "ArrowRight" -> hero.move(true)
+                                "ArrowLeft" -> hero.move(true)
+                                "ArrowRight" -> hero.move(false)
                                 "KeyZ" -> hero.jump()
                             }
                             render() // вызов метода render() после обновления положения героя
