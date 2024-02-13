@@ -49,8 +49,14 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
         }
     }
 
-    override val sprite
-        get() = walkingAnimation.sprite
+    override val sprite: Sprite
+        get() = when {
+            isJumping->sprites[5]
+            isWalking -> walkingAnimation.sprite
+            else -> sprites[0]
+        }.apply {
+            src = if (isFacingForward) HERO_FORWARD_IMAGE else HERO_BACKWARD_IMAGE
+        }
 
     override fun update(dt: Double) {
         if (isJumping) {    // Обновление позиции по вертикали в зависимости от скорости прыжка
@@ -68,16 +74,11 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
 
 
 
-//    fun move(forward: Boolean) {
-//        if (isJumping || !isStanding) return // Если Марио в воздухе или не на земле, то не реагирует на перемещение
-//        isWalking = true
-//        isFacingForward = forward
-//
-//        sprite.src = if (forward) HERO_FORWARD_IMAGE else HERO_BACKWARD_IMAGE
-//        vX += if (forward) 10.0 else -10.0 // Ускорение в соответствующую сторону
-//
-//        if (vX * aX < 0) { // Если скорость и ускорение направлены в разные стороны
-//            sprite.src = sprites[4].src // Смена направления спрайта Марио
-//        }
-//        if (abs(vX) > 5.0) vX = sign(vX) * 5.0 // Ограничение скорости
-//    }
+/*
+Спрайт 0 - Марио стоит
+1, 2, 3 - шагает/бежит
+4 - меняет направление движения
+5 - прыгает
+6 - сдаётся
+При ходьбе/беге нам нужно чередовать три изображения,причем скорость смены кадров анимации может зависеть от скорости перемещения
+*/
