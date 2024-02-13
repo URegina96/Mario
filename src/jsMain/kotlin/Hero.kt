@@ -21,31 +21,47 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
         }
     }
     fun moveRight(){
+        if (isJumping) return // Если прыжок активен, игнорируем вызов функции движения вправо
         isWalking = true
+        isFacingForward = true
+        isJumping = false
         sprite.src = HERO_FORWARD_IMAGE
-        x+= 0.05
+        x+= 0.3
     }
 
     fun moveLeft(){
+        if (isJumping) return // Если прыжок активен, игнорируем вызов функции движения влево
         isWalking = true
+        isFacingForward = false
+        isJumping = false
         sprite.src = HERO_BACKWARD_IMAGE
-        x-= 0.05
+        x-= 0.3
     }
     fun notMove() {
         isWalking = false
+        isFacingForward = true
         vX = 0.0 // Скорость становится равной 0
     }
     fun jump() {
-        if (y == 0.0) {
-            isJumping = false
+        if (!isJumping && y == 0.0) { // проверка, чтобы не было бага с застреванием в воздухе , если нажато два раза на прыжок, чтобы прыжок мог быть выполнен только в том случае, если персонаж не находится в состоянии прыжка
             vY = 14.5
-            sprite.src = sprites[5].src
+            isJumping = true
         }
     }
 
     override val sprite
         get() = walkingAnimation.sprite
+
     override fun update(dt: Double) {
+        if (isJumping) {    // Обновление позиции по вертикали в зависимости от скорости прыжка
+            y += vY * dt
+            vY -= GRAVITY_ACCELERATION * dt
+            if (y < 0) {   // Проверка, чтобы объект не проваливался под землю
+                y = 0.0
+                vY = 0.0
+                isJumping = false
+            }
+        }
         walkingAnimation.update(dt)
     }
 }
