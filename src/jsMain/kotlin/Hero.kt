@@ -12,10 +12,6 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
     private var isJumping = false
     private var isSurrendering = false
     private var surrenderingTime = 0.0
-    private var lengthHero = 0.1
-    private var leftLegHero = levelFloor.any { x.toInt() in it }
-    private var rightLegHero = levelFloor.any { (x+lengthHero).toInt() in it }
-    private var overTheAbyssHero = !leftLegHero && !rightLegHero
     private val walkingAnimation = SpriteAnimation(sprites.toList().subList(1, 4), fps = 5.0)
 
     fun move(isDirectionForward: Boolean) {
@@ -57,7 +53,11 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
         }
     }
     fun surrender() {
-        if(!isSurrendering) {
+        var lengthHero = 1.0
+        var leftLegHero = levelFloor.any { x.toInt() in it }
+        var rightLegHero = levelFloor.any { (x + lengthHero).toInt() in it }
+        var overTheAbyssHero = !leftLegHero && !rightLegHero
+        if (!isSurrendering && overTheAbyssHero) {
             isSurrendering = true
             surrenderingTime = 0.0
         }
@@ -73,32 +73,27 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
         }
 
     override fun update(dt: Double) {
-        if (overTheAbyssHero) {
             surrender()
             if (isSurrendering) {
                 surrenderingTime += dt
                 when (surrenderingTime) {
-                    in 0.0..0.5 -> { y == 0.0 }
-                    in 0.5..1.0 -> { y = 0.3 + dt}
+                    in 0.0..0.5 -> { y = 0.0 }
+                    in 0.5..1.0 -> { y = 3.0 + dt }
                     in 1.0..2.0 -> { y += -GRAVITY_ACCELERATION * (surrenderingTime - 1.0) * dt }
                 }
             }
-        }
-
-
-
-        if (isJumping) {    // Обновление позиции по вертикали в зависимости от скорости прыжка
-            y += vY * dt
-            vY -= GRAVITY_ACCELERATION * dt
-            if (y < 0) {   // Проверка, чтобы объект не проваливался под землю
-                y = 0.0
-                vY = 0.0
-                isJumping = false
+            if (isJumping) {    // Обновление позиции по вертикали в зависимости от скорости прыжка
+                y += vY * dt
+                vY -= GRAVITY_ACCELERATION * dt
+                if (y < 0) {   // Проверка, чтобы объект не проваливался под землю
+                    y = 0.0
+                    vY = 0.0
+                    isJumping = false
+                }
             }
+            walkingAnimation.update(dt)
         }
-        walkingAnimation.update(dt)
     }
-}
 
 
 
