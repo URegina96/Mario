@@ -1,3 +1,6 @@
+import KeyboardInput.isJumpPressed
+import KeyboardInput.isLeftPressed
+import KeyboardInput.isRightPressed
 import kotlin.math.abs
 import kotlin.math.sign
 
@@ -66,6 +69,7 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
     override val sprite: Sprite
         get() = when {
             isJumping->sprites[5]
+            isSurrendering->sprites[4]
             isWalking -> walkingAnimation.sprite
             else -> sprites[0]
         }.apply {
