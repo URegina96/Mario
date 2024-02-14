@@ -3,11 +3,19 @@ import kotlin.math.sign
 
 const val HERO_FORWARD_IMAGE = "sprites/player.png"
 const val HERO_BACKWARD_IMAGE = "sprites/playerl.png"
+var hero=Hero()
+var levelFloor=level.floor
 class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMAGE, si = 5 + it, sj = 2) }) {
 
     private var isWalking = false
     private var isFacingForward = true
     private var isJumping = false
+    private var isSurrendering = false
+    private var surrenderingTime = 0.0
+    private var lengthHero = 0.1
+    private var leftLegHero = levelFloor.any { x.toInt() in it }
+    private var rightLegHero = levelFloor.any { (x+lengthHero).toInt() in it }
+    private var overTheAbyssHero = !leftLegHero && !rightLegHero
     private val walkingAnimation = SpriteAnimation(sprites.toList().subList(1, 4), fps = 5.0)
 
     fun move(isDirectionForward: Boolean) {
@@ -48,6 +56,12 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
             isJumping = true
         }
     }
+    fun surrender() {
+        if(!isSurrendering) {
+            isSurrendering = true
+            surrenderingTime = 0.0
+        }
+    }
 
     override val sprite: Sprite
         get() = when {
@@ -59,6 +73,20 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
         }
 
     override fun update(dt: Double) {
+        if (overTheAbyssHero) {
+            surrender()
+            if (isSurrendering) {
+                surrenderingTime += dt
+                when (surrenderingTime) {
+                    in 0.0..0.5 -> { y == 0.0 }
+                    in 0.5..1.0 -> { y = 0.3 + dt}
+                    in 1.0..2.0 -> { y += -GRAVITY_ACCELERATION * (surrenderingTime - 1.0) * dt }
+                }
+            }
+        }
+
+
+
         if (isJumping) {    // Обновление позиции по вертикали в зависимости от скорости прыжка
             y += vY * dt
             vY -= GRAVITY_ACCELERATION * dt
