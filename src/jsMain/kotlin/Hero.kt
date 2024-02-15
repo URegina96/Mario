@@ -28,7 +28,6 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
         }
     }
     fun moveRight(){
-        if (isJumping) return // Если прыжок активен, игнорируем вызов функции движения вправо
         isWalking = true
         isFacingForward = true
         isJumping = false
@@ -37,7 +36,6 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
     }
 
     fun moveLeft(){
-        if (isJumping) return // Если прыжок активен, игнорируем вызов функции движения влево
         isWalking = true
         isFacingForward = false
         isJumping = false
@@ -60,7 +58,7 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
         var leftLegHero = levelFloor.any { x.toInt() in it }
         var rightLegHero = levelFloor.any { (x + lengthHero).toInt() in it }
         var overTheAbyssHero = !leftLegHero && !rightLegHero
-        if (!isSurrendering && overTheAbyssHero) {
+        if (!isSurrendering && overTheAbyssHero && y<=0) {
             isSurrendering = true
             surrenderingTime = 0.0
         }
@@ -89,12 +87,17 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
             if (isJumping) {    // Обновление позиции по вертикали в зависимости от скорости прыжка
                 y += vY * dt
                 vY -= GRAVITY_ACCELERATION * dt
-                if (y < 0) {   // Проверка, чтобы объект не проваливался под землю
+                if (y <= 0) {   // Проверка, чтобы объект не проваливался под землю
                     y = 0.0
                     vY = 0.0
                     isJumping = false
                 }
             }
+        if (y > 0) {  // Применение гравитации, если персонаж находится в воздухе
+            y += vY * dt
+            vY -= (GRAVITY_ACCELERATION*0.5) * dt
+            isJumping = true
+        }
             walkingAnimation.update(dt)
         }
     }
