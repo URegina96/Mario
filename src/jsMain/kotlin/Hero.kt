@@ -8,7 +8,8 @@ const val HERO_FORWARD_IMAGE = "sprites/player.png"
 const val HERO_BACKWARD_IMAGE = "sprites/playerl.png"
 var hero=Hero()
 var levelFloor=level.floor
-class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMAGE, si = 5 + it, sj = 2) }) {
+
+class Hero : Actor(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMAGE, si = 5 + it, sj = 2) }) {
 
     private var isWalking = false
     private var isFacingForward = true
