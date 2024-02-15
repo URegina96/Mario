@@ -67,7 +67,7 @@ class Hero : Entity(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IM
     override val sprite: Sprite
         get() = when {
             isJumping->sprites[5]
-            isSurrendering->sprites[4]
+            isSurrendering->sprites[6]
             isWalking -> walkingAnimation.sprite
             else -> sprites[0]
         }.apply {
