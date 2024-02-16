@@ -181,6 +181,20 @@ class Level(
         }
         if (windowX < 0) windowX = 0.0
         if (windowX > (LEVEL_LENGTH - 16)) windowX = (LEVEL_LENGTH - 16).toDouble()
+
+        for (entity in staticEntities + dynamicEntities + hero) {
+            if (entity.left > windowX - 16 && entity.right < windowX + 32) {
+                entity.update(dt)
+            }
+        }
+
+        for (entity1 in dynamicEntities + hero) {
+            for (entity2 in staticEntities + dynamicEntities) {
+                if (entity1 != entity2) {
+                    entity1.checkCollisionWith(entity2)
+                }
+            }
+        }
     }
 }
 

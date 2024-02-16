@@ -12,6 +12,7 @@ var levelFloor=level.floor
 class Hero : Actor(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMAGE, si = 5 + it, sj = 2) }) {
 
     private var isWalking = false
+    var isStanding = false
     private var isFacingForward = true
     private var isJumping = false
     private var isSurrendering = false
