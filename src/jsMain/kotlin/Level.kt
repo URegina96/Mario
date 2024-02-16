@@ -32,6 +32,9 @@ class Level(
     var windowX: Double = 0.0 // начальное положение окна
     private var gameTime: Double = Double.NaN
     val hero = Hero()
+    private var backgroundEntities = setOf<Entity>()
+    private var staticEntities = setOf<Entity>()
+    private var dynamicEntities = setOf<Actor>()
 
     init {
         floor.forEach { range -> // пол
@@ -73,18 +76,28 @@ class Level(
             addBackwardSteps(i, j, height)
         }
     }
+    fun render() {
+        for (entity in backgroundEntities) {
+            renderEntity(entity)
+        }
 
-    fun render() { // Уровень содержит  коллекцию объектов и может нарисовать их в нужном месте - функция render
+        for (entity in staticEntities) {
+            renderEntity(entity)
+        }
+
+        for (entity in dynamicEntities) {
+            renderEntity(entity)
+        }
+        renderEntity(hero)
+    }
+
+    private fun renderEntity(entity: Entity) {
         for (entity in entities) {
             if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
                 drawSprite(entity.sprite, entity.x - windowX, entity.y)
                 drawSprite(hero.sprite,hero.x-windowX, hero.y)
             }
         }
-            /*
-            drawSprite(heroSprite, hero.x, hero.y)` - это вызов функции `drawSprite`, которая принимает три параметра: `heroSprite` (спрайт героя), `hero.x` (координата по оси X) и `hero.y` (координата по оси Y)
-            Эта функция отвечает за отображение спрайта на экране в указанных координатах
-             */
     }
 
     //----------------------------------------------------игровые элементы---------------------------------------------------------//
@@ -108,7 +121,7 @@ class Level(
         entities += Entity(i + size + 2, j, cloudSprites[2]) // right side
     }
 
-    private fun drawHillSection(i: Int, j: Int, size: Int) {//склон
+    fun drawHillSection(i: Int, j: Int, size: Int) {//склон
         for (cell in 1..size) {
             when (cell) {
                 1 -> entities += Entity(i, j, hillSprites[0])
