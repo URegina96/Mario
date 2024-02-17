@@ -82,11 +82,6 @@ fun drawSprite(sprite: Sprite, x: Double, y: Double) { // функция drawSpr
         dy = (13 - y - sprite.h) * CELL_SIZE,
     )
 }
-
-fun drawSprite(
-    sprite: Sprite,
-    i: Int,
-    j: Int
-) { // статичные элементы игре  располагаются в игре строго по клеточкам, поэтому давайте добавим еще версию drawSprite  с целочисленными координатами  - индексами (i, j)
+fun drawSprite(sprite: Sprite, i: Int, j: Int) { // статичные элементы игре  располагаются в игре строго по клеточкам, поэтому давайте добавим еще версию drawSprite  с целочисленными координатами  - индексами (i, j)
     drawSprite(sprite, i.toDouble(), j.toDouble())
 }

@@ -76,6 +76,7 @@ class Level(
             addBackwardSteps(i, j, height)
         }
     }
+    //----------------------------------------------------игровые элементы по слоям---------------------------------------------------------//
     fun render() {
         for (entity in backgroundEntities) {
             renderEntity(entity)
@@ -92,41 +93,59 @@ class Level(
     }
 
     private fun renderEntity(entity: Entity) {
-        for (entity in entities) {
+        if (entity in backgroundEntities) {
             if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
                 drawSprite(entity.sprite, entity.x - windowX, entity.y)
-                drawSprite(hero.sprite,hero.x-windowX, hero.y)
+            }
+        }
+
+        if (entity in staticEntities) {
+            if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
+//                drawSprite(entity.sprite, entity.x.toInt(), entity.y.toInt())
+                drawSprite(entity.sprite, entity.x - windowX, entity.y)
+            }
+        }
+
+        if (entity in dynamicEntities) {
+            if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
+                drawSprite(entity.sprite, entity.x - windowX, entity.y)
+            }
+        }
+
+        if (entity is Actor) {
+            if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
+                drawSprite(entity.sprite, entity.x - windowX, entity.y)
             }
         }
     }
 
     //----------------------------------------------------игровые элементы---------------------------------------------------------//
     fun addFloor(i: Int, j: Int) {  //пол
-        entities += Entity(i, j, floorSprite)
+        backgroundEntities += Entity(i, j, floorSprite)
     }
 
     fun addBush(i: Int, size: Int) {  //куст
-        entities += Entity(i, 0, bushSprites[0])
+        backgroundEntities += Entity(i, 0, bushSprites[0])
         for (n in i + 1..i + size - 2) {
-            entities += Entity(n, 0, bushSprites[1]) // middle
+            backgroundEntities += Entity(n, 0, bushSprites[1]) // middle
         }
-        entities += Entity(i + size - 1, 0, bushSprites[2]) // right side
+        backgroundEntities += Entity(i + size - 1, 0, bushSprites[2]) // right side
     }
 
     fun addCloud(i: Int, j: Int, size: Int) { //облако
-        entities += Entity(i, j, cloudSprites[0]) // left side
+        backgroundEntities += Entity(i, j, cloudSprites[0]) // left side
         for (n in i + 1..i + 1 + size) {
-            entities += Entity(n, j, cloudSprites[1]) // middle
+            backgroundEntities += Entity(n, j, cloudSprites[1]) // middle
         }
-        entities += Entity(i + size + 2, j, cloudSprites[2]) // right side
+        backgroundEntities += Entity(i + size + 2, j, cloudSprites[2]) // right side
     }
 
-    fun drawHillSection(i: Int, j: Int, size: Int) {//склон
+    fun addDrawHillSection(i: Int, j: Int, size: Int) {//склон
         for (cell in 1..size) {
             when (cell) {
-                1 -> entities += Entity(i, j, hillSprites[0])
-                size -> entities += Entity(i + size - 1, j, hillSprites[2])
-                else -> entities += Entity(i + cell - 1, j, hillSprites[4])
+                1 -> backgroundEntities += Entity(i, j, hillSprites[0])
+                size -> backgroundEntities += Entity(i + size - 1, j, hillSprites[2])
+                else -> backgroundEntities += Entity(i + cell - 1, j, hillSprites[4])
             }
         }
     }
@@ -134,29 +153,27 @@ class Level(
     fun addHill(i: Int, height: Int) {  //склон
         for (j in 0 until height) {
             val size = (height - j) * 2 + 1 // calculate section size
-            drawHillSection(i + j, j, size)
+            addDrawHillSection(i + j, j, size)
         }
-        drawSprite(hillSprites[1], i = i + height, j = height) // top
     }
 
     fun addPipes(i: Int, j: Int) { // труба
-        entities += Entity(i, 0, pipeSprites[2])  // left side - leg
-        entities += Entity(i + 1, 0, pipeSprites[3]) // right side - leg
+        staticEntities += Entity(i, 0, pipeSprites[2])  // left side - leg
+        staticEntities += Entity(i + 1, 0, pipeSprites[3]) // right side - leg
 
-        entities += Entity(i, 1, pipeSprites[0])  // left side - top
-        entities += Entity(i + 1, 1, pipeSprites[1]) // right side - top
+        staticEntities += Entity(i, 1, pipeSprites[0])  // left side - top
+        staticEntities += Entity(i + 1, 1, pipeSprites[1]) // right side - top
     }
 
     fun addBricks(i: Int, j: Int, length: Int) { // кирпичи
         for (n in 0 until length) {
             when (n) {
-                else -> entities += Entity(i + n, j, brickSprite[0])
+                else -> staticEntities += Entity(i + n, j, brickSprite[0])
             }
         }
     }
-
     fun addPandoras(i: Int, j: Int) {  // ящик с вопросом
-        entities += Entity(i, j, pandorasSprite[0])
+        staticEntities += Entity(i, j, pandorasSprite[0])
     }
 
     fun addForwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней вперед
@@ -182,11 +199,11 @@ class Level(
         if (windowX < 0) windowX = 0.0
         if (windowX > (LEVEL_LENGTH - 16)) windowX = (LEVEL_LENGTH - 16).toDouble()
 
-        for (entity in staticEntities + dynamicEntities + hero) {
-            if (entity.left > windowX - 16 && entity.right < windowX + 32) {
-                entity.update(dt)
-            }
-        }
+//        for (entity in staticEntities + dynamicEntities + hero) {
+//            if (entity.left > windowX - 16 && entity.right < windowX + 32) {
+//                entity.update(dt)
+//            }
+//        }
 
         for (entity1 in dynamicEntities + hero) {
             for (entity2 in staticEntities + dynamicEntities) {
