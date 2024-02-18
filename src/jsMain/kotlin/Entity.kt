@@ -51,29 +51,29 @@ open class Entity(open var x: Double, open var y: Double, open val sprites: List
             y = 0.0
         }
     }
-    fun onRightSideCollisionWith(that: Entity) {
-        x = that.left - width // Перемещаем Марио влево от объекта, чтобы они были вплотную
-        vX = 0.0 // Сбрасываем горизонтальную скорость до нуля
+    open fun onRightSideCollisionWith(that: Entity) {
+//        x = that.left - width // Перемещаем Марио влево от объекта, чтобы они были вплотную
+//        vX = 0.0 // Сбрасываем горизонтальную скорость до нуля
     }
 
-    fun onLeftSideCollisionWith(that: Entity) {
-        x = that.right // Перемещаем Марио вправо от объекта, чтобы они были вплотную
-        vX = 0.0 // Сбрасываем горизонтальную скорость до нуля
+    open fun onLeftSideCollisionWith(that: Entity) {
+//        x = that.right // Перемещаем Марио вправо от объекта, чтобы они были вплотную
+//        vX = 0.0 // Сбрасываем горизонтальную скорость до нуля
     }
 
-    fun onTopSideCollisionWith(that: Entity) {
-        y = that.bottom
-        if (vY < 0) {
-            vY = 0.0
-        }
+    open fun onTopSideCollisionWith(that: Entity) {
+//        y = that.bottom
+//        if (vY < 0) {
+//            vY = 0.0
+//        }
     }
 
-    fun onBottomSideCollisionWith(that: Entity) {
-        y = that.top - this.height
-        if (vY > 0) {
-            vY = 0.0
-        }
-        hero.isStanding = true
+    open fun onBottomSideCollisionWith(that: Entity) {
+//        y = that.top - this.height
+//        if (vY > 0) {
+//            vY = 0.0
+//        }
+//        hero.isStanding = true
     }
     fun checkCollisionWith(that: Entity) { //  Обработка столкновений
         if(this == that) { return }
