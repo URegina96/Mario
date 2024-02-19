@@ -16,16 +16,15 @@ class Level(
     //отвечает за внешний вид, т.е. под какими индаксами спрайты берутся   (замена кода "игровые элементы" из Game.kt)
     val forwardSteps: List<IntTriple> = emptyList(), // отдельные списки для ступеней вперед
     val backwardSteps: List<IntTriple> = emptyList(), // отдельные списки для ступеней назад
-    val cloudSprites: List<Sprite> = emptyList(),
-    val bushSprites: List<Sprite> = emptyList(),
-    val hillSprites: List<Sprite> = emptyList(),
-    val pipeSprites: List<Sprite> = emptyList(),
-    val floorSprite: Sprite,
-    val brickSprite: List<Sprite> = emptyList(),
-    val pandorasSprite: List<Sprite> = emptyList(),
-    val forwardStepsSprite: List<Sprite> = emptyList(),
-    val backwardStepsSprite: List<Sprite> = emptyList(),
-//                val wallSprite: Sprite,
+    val cloudSprites: List<Sprite> = Sprite.cloud(0, 20),
+    val bushSprites: List<Sprite> = Sprite.bush(11, 9),
+    val hillSprites: List<Sprite> = Sprite.hill(8, 10),
+    val pipeSprites: List<Sprite> = Sprite.pipe(0, 10),
+    val floorSprite: Sprite = Sprite.tile(0, 0),
+    val brickSprite: List<Sprite> = Sprite.bricks(1, 0),
+    val pandorasSprite: List<Sprite> = Sprite.pandoras(24, 0),
+    val forwardStepsSprite: List<Sprite> = Sprite.forwardSteps(0, 3),
+    val backwardStepsSprite: List<Sprite> = Sprite.backwardSteps(0, 5),
 ) {
 
     private var entities = setOf<Entity>()
@@ -227,14 +226,4 @@ val level = Level(
     pandoras = listOf(5 x 5, 16 x 3, 21 x 3, 22 x 7, 23 x 3, 78 x 3, 94 x 7, 105 x 3, 108 x 3, 108 x 7, 111 x 3, 129 x 7, 130 x 7, 170 x 3),// ящик с вопросом
     forwardSteps = listOf(5 x 4 x 0, 134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), //  отдельные списки для ступеней вперед
     backwardSteps = listOf(15 x 4 x 0, 140 x 4 x 0, 155 x 4 x 0), //  отдельные списки для ступеней назад
-    //----------------------------------------------------координаты спрайтов---------------------------------------------------------//
-    floorSprite = Sprite.tile(0, 0), // пол Спрайт
-    bushSprites = Sprite.bush(11, 9), // кустовые спрайты
-    cloudSprites = Sprite.cloud(0, 20), // облачные спрайты
-    hillSprites = Sprite.hill(8, 10), // холмовые спрайты
-    pipeSprites = Sprite.pipe(0, 10), // трубные спрайты
-    brickSprite = Sprite.bricks(1, 0), // кирпичные спрайты
-    pandorasSprite = Sprite.pandoras(24, 0),  // ящик с вопросом
-    forwardStepsSprite = Sprite.forwardSteps(0, 3),  //  отдельные списки для ступеней вперед
-    backwardStepsSprite = Sprite.backwardSteps(0, 5),  //  отдельные списки для ступеней назад
 )
