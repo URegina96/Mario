@@ -13,7 +13,7 @@ class Hero : Actor(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMA
 
     private var isWalking = false
     private var isFacingForward = true
-    private var isJumping = false
+    var isJumping = false
     private var isSurrendering = false
     private var surrenderingTime = 0.0
     private val walkingAnimation = SpriteAnimation(sprites.toList().subList(1, 4), fps = 5.0)
@@ -49,10 +49,8 @@ class Hero : Actor(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMA
         vX = 0.0 // Скорость становится равной 0
     }
     fun jump() {
-        if (!isJumping && y == 0.0) { // проверка, чтобы не было бага с застреванием в воздухе , если нажато два раза на прыжок, чтобы прыжок мог быть выполнен только в том случае, если персонаж не находится в состоянии прыжка
-            vY = 14.5
+             vY = 14.5
             isJumping = true
-        }
     }
     fun surrender() {
         var lengthHero = 1.0
@@ -76,28 +74,35 @@ class Hero : Actor(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMA
         }
 
     override fun update(dt: Double) {
-            surrender()
-            if (isSurrendering) {
-                surrenderingTime += dt
-                when (surrenderingTime) {
-                    in 0.0..0.5 -> { y = 0.0 }
-                    in 0.5..1.0 -> { y = 3.0 + dt }
-                    in 1.0..2.0 -> { y += -GRAVITY_ACCELERATION * (surrenderingTime - 1.0) * dt }
-                }
-            }
-            if (isJumping) {    // Обновление позиции по вертикали в зависимости от скорости прыжка
-                y += vY * dt
-                vY -= GRAVITY_ACCELERATION * dt
-                if (y <= 0) {   // Проверка, чтобы объект не проваливался под землю
-                    y = 0.0
-                    vY = 0.0
-                    isJumping = false
-                }
-            }
-        if (y > 0) {  // Применение гравитации, если персонаж находится в воздухе
+        if (y > 0) { // Применение гравитации, если персонаж находится в воздухе
             y += vY * dt
-            vY -= (GRAVITY_ACCELERATION*0.5) * dt
-            isJumping = true
+            vY -= (GRAVITY_ACCELERATION ) * dt
+        }
+        if (isJumping) {    // Обновление позиции по вертикали в зависимости от скорости прыжка
+            y += vY * dt
+            vY -= (GRAVITY_ACCELERATION ) * dt
+            if (y <= 0) {   // Проверка, чтобы объект не проваливался под землю
+                y = 0.0
+                vY = 0.0
+                isJumping = false
+            }
+        }
+        surrender()
+        if (isSurrendering) {
+            surrenderingTime += dt
+            when (surrenderingTime) {
+                in 0.0..0.5 -> {
+                    y = 0.0
+                }
+
+                in 0.5..1.0 -> {
+                    y = 3.0 + dt
+                }
+
+                in 1.0..2.0 -> {
+                    y += -GRAVITY_ACCELERATION * (surrenderingTime - 1.0) * dt
+                }
+            }
         }
             walkingAnimation.update(dt)
         }

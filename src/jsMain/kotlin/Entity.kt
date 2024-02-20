@@ -7,6 +7,7 @@ open class Entity(open var x: Double, open var y: Double, open val sprites: List
     open var vX: Double = 0.0
     open var vY: Double = 0.0
     open var aX: Double = 0.0
+    var isStanding = false
     open val aY = -GRAVITY_ACCELERATION // на Марио действует сила тяжести, поэтому нужно задать ему ускорение
 
     val width
@@ -75,8 +76,14 @@ open class Entity(open var x: Double, open var y: Double, open val sprites: List
 //        }
 //        hero.isStanding = true
     }
+/*
+В данном случае за Марио отвечает объект, к которому применяется функция `checkCollisionWith`,
+то есть `this`. Объект, с которым происходит столкновение,
+передается в качестве аргумента функции и обозначается как `that`.
+ */
     fun checkCollisionWith(that: Entity) { //  Обработка столкновений
-        if(this == that) { return }
+        isStanding = false
+        if(this == that) { return } //этот (this)-hero объект с другим (that)-goomba
 
         val distanceX = this.centerX - that.centerX
         val distanceY = this.centerY - that.centerY

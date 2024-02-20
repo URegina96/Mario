@@ -1,3 +1,4 @@
+import kotlin.math.abs
 import kotlin.math.floor
 
 open class Actor(override var x: Double, override var y: Double, override val sprites: List<Sprite>) : Entity(x, y, sprites) {
@@ -5,7 +6,6 @@ open class Actor(override var x: Double, override var y: Double, override val sp
     override var vY: Double = 0.0
     override var aX: Double = 0.0
     override var aY: Double = -GRAVITY_ACCELERATION
-    var isStanding = false
 
     constructor(i: Int, j: Int, sprites: List<Sprite>) : this(i.toDouble(), j.toDouble(), sprites)
 
@@ -26,13 +26,21 @@ open class Actor(override var x: Double, override var y: Double, override val sp
     }
 
     override fun onTopSideCollisionWith(that: Entity) {
-        y = that.bottom
-        vY = 0.0
+        if (y>0) {
+            y = that.top //марио ходит и прыгает по поверхностям
+            vY = 0.0
+        }
     }
+    /*
+    y = that.top --> верх спрайтов
+    y = that.bottom --> низ спрайтов
+     */
 
     override fun onBottomSideCollisionWith(that: Entity) {
-        super.onBottomSideCollisionWith(that)
-        isStanding = true
+          if (y>0){
+              y=that.bottom-that.height ////марио бъется головой по поверхностям и прыгает
+              vY=0.0
+          }
     }
 
 

@@ -33,7 +33,7 @@ class Level(
     val hero = Hero()
     private var backgroundEntities = setOf<Entity>()
     private var staticEntities = setOf<Entity>()
-    private var dynamicEntities = setOf<Actor>()
+    var dynamicEntities = setOf<Actor>()
 
     init {
         floor.forEach { range -> // пол
@@ -111,7 +111,7 @@ class Level(
             }
         }
 
-        if (entity is Actor) {
+        if (entity is Hero) {
             if (entity.x + entity.sprite.w > windowX && entity.x < windowX + 16) {
                 drawSprite(entity.sprite, entity.x - windowX, entity.y)
             }
@@ -198,11 +198,11 @@ class Level(
         if (windowX < 0) windowX = 0.0
         if (windowX > (LEVEL_LENGTH - 16)) windowX = (LEVEL_LENGTH - 16).toDouble()
 
-//        for (entity in staticEntities + dynamicEntities + hero) {
-//            if (entity.left > windowX - 16 && entity.right < windowX + 32) {
+        for (entity in staticEntities + dynamicEntities + hero) {
+            if (entity.left > windowX - 16 && entity.right < windowX + 32) {
 //                entity.update(dt)
-//            }
-//        }
+            }
+        }
 
         for (entity1 in dynamicEntities + hero) {
             for (entity2 in staticEntities + dynamicEntities) {
