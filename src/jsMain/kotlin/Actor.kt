@@ -29,6 +29,7 @@ open class Actor(override var x: Double, override var y: Double, override val sp
         if (y>0) {
             y = that.top //марио ходит и прыгает по поверхностям
             vY = 0.0
+            isStanding=true
         }
     }
     /*
@@ -40,6 +41,7 @@ open class Actor(override var x: Double, override var y: Double, override val sp
           if (y>0){
               y=that.bottom-that.height ////марио бъется головой по поверхностям и прыгает
               vY=0.0
+              isStanding=false
           }
     }
 
