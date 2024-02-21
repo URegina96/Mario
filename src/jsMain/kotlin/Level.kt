@@ -1,4 +1,3 @@
-import kotlinx.browser.document
 import org.w3c.dom.events.KeyboardEvent
 
 typealias IntPair = Pair<Int, Int>
@@ -13,6 +12,7 @@ class Level(
     val pipes: List<IntPair> = emptyList(),
     val bricks: List<IntTriple> = emptyList(),  // Дорожки из кирпичей  i x j x длина
     val pandoras: List<IntPair> = emptyList(),   // Ящик Пандоры - это блок с вопросом
+    val goomba: List<IntPair> = emptyList(),
     //отвечает за внешний вид, т.е. под какими индаксами спрайты берутся   (замена кода "игровые элементы" из Game.kt)
     val forwardSteps: List<IntTriple> = emptyList(), // отдельные списки для ступеней вперед
     val backwardSteps: List<IntTriple> = emptyList(), // отдельные списки для ступеней назад
@@ -23,6 +23,7 @@ class Level(
     val floorSprite: Sprite = Sprite.tile(0, 0),
     val brickSprite: List<Sprite> = Sprite.bricks(1, 0),
     val pandorasSprite: List<Sprite> = Sprite.pandoras(24, 0),
+    val goombaSprites: List<Sprite> = Sprite.goomba(1, 1),
     val forwardStepsSprite: List<Sprite> = Sprite.forwardSteps(0, 3),
     val backwardStepsSprite: List<Sprite> = Sprite.backwardSteps(0, 5),
 ) {
@@ -65,6 +66,13 @@ class Level(
         }
         pandoras.forEach { (i, j) ->  // ящик с вопросом
             addPandoras(i, j)
+        }
+        goomba.forEach {
+            val (i, j) = it
+            dynamicEntities += Goomba(i, j, goombaSprites, onDisappear = {
+                dynamicEntities -= this
+                onDisappear()
+            })
         }
         forwardSteps.forEach { (indices, height) ->   // отдельные списки для ступеней вперед
             val (i, j) = indices
@@ -224,6 +232,7 @@ val level = Level(
     hills = listOf(0 x 2, 16 x 1, 48 x 2, 64 x 1, 96 x 2, 111 x 1, 144 x 2, 160 x 1, 192 x 2), //холмы  холм/склон
     pipes = listOf(10 x 2, 21 x 3, 24 x 3, 38 x 3, 46 x 4, 163 x 2, 179 x 2), // трубы
     pandoras = listOf(5 x 5, 16 x 3, 21 x 3, 22 x 7, 23 x 3, 78 x 3, 94 x 7, 105 x 3, 108 x 3, 108 x 7, 111 x 3, 129 x 7, 130 x 7, 170 x 3),// ящик с вопросом
+    goomba = listOf(15 x 0),
     forwardSteps = listOf(5 x 4 x 0, 134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), //  отдельные списки для ступеней вперед
     backwardSteps = listOf(15 x 4 x 0, 140 x 4 x 0, 155 x 4 x 0), //  отдельные списки для ступеней назад
 )

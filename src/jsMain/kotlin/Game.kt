@@ -42,7 +42,8 @@ fun main() {  // ... инициализация и отрисовка игров
             Images.load(
                 TILES_IMAGE,
                 HERO_FORWARD_IMAGE,
-                HERO_BACKWARD_IMAGE
+                HERO_BACKWARD_IMAGE,
+                GOOMBA_IMAGE
             ) {
                 window.requestAnimationFrame(::update)
             }

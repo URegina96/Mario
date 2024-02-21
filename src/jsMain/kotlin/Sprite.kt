@@ -1,6 +1,7 @@
 
 
 const val TILES_IMAGE = "sprites/tiles.png"
+const val GOOMBA_IMAGE = "sprites/goomba.png"
 val cloudSprite = Sprite(TILES_IMAGE, si = 0, sj = 20, w = 3, h = 2)
 
 
@@ -8,6 +9,7 @@ val cloudSprite = Sprite(TILES_IMAGE, si = 0, sj = 20, w = 3, h = 2)
 data class Sprite(var src: String, val si: Int, val sj: Int, val w: Int = 1, val h: Int = 1) {
     companion object {
         fun tile(si: Int, sj: Int, w: Int = 1, h: Int = 1) = Sprite(TILES_IMAGE, si, sj, w, h) // пол
+        fun tileGoomba(si: Int, sj: Int, w: Int = 1, h: Int = 1) = Sprite(GOOMBA_IMAGE, si, sj, w, h) // пол
         fun bush(si: Int, sj: Int) = listOf(
             //куст
             tile(si, sj),
@@ -46,6 +48,9 @@ data class Sprite(var src: String, val si: Int, val sj: Int, val w: Int = 1, val
         fun pandoras(si: Int, sj: Int) = listOf(
             // ящик с вопросом
             tile(si, sj),
+        )
+        fun goomba(si: Int, sj: Int) = listOf(
+            tileGoomba(si, sj),
         )
         fun forwardSteps(si: Int, sj: Int) = listOf(
             //  отдельные списки для ступеней вперед
