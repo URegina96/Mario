@@ -32,6 +32,8 @@ class Level(
     var windowX: Double = 0.0 // начальное положение окна
     private var gameTime: Double = Double.NaN
     val hero = Hero()
+    var actorClass = Actor()
+    val goombaClass = Goomba(0, 0, emptyList()) { }// В данном случае, мы передаем пустую лямбда-функцию в качестве параметра `onDisappear`, чтобы избежать ошибки "No value passed for parameter 'onDisappear'"
     private var backgroundEntities = setOf<Entity>()
     private var staticEntities = setOf<Entity>()
     var dynamicEntities = setOf<Actor>()
@@ -208,7 +210,7 @@ class Level(
 
         for (entity in staticEntities + dynamicEntities + hero) {
             if (entity.left > windowX - 16 && entity.right < windowX + 32) {
-//                entity.update(dt)
+                actorClass.update(dt)
             }
         }
 
@@ -216,6 +218,7 @@ class Level(
             for (entity2 in staticEntities + dynamicEntities) {
                 if (entity1 != entity2) {
                     entity1.checkCollisionWith(entity2)
+                    goombaClass.update(dt)
                 }
             }
         }
