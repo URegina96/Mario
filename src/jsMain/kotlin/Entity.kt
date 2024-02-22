@@ -42,17 +42,17 @@ open class Entity(open var x: Double, open var y: Double, open val sprites: List
     open val sprite: Sprite
         get() = sprites[0]
 
-    open fun update(dt: Double) {
-        vX += aX * dt
-        vY += aY * dt
-        x += vX * dt
-        y += vY * dt
-
-        if (y <= 0.0) {
-            vY = 0.0
-            y = 0.0
-        }
-    }
+//    open fun update(dt: Double) {
+//        vX += aX * dt
+//        vY += aY * dt
+//        x += vX * dt
+//        y += vY * dt
+//
+//        if (y <= 0.0) {
+//            vY = 0.0
+//            y = 0.0
+//        }
+//    }
     open fun onRightSideCollisionWith(that: Entity) {
 //        x = that.left - width // Перемещаем Марио влево от объекта, чтобы они были вплотную
 //        vX = 0.0 // Сбрасываем горизонтальную скорость до нуля

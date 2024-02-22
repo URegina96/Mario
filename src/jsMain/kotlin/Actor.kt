@@ -46,10 +46,14 @@ open class Actor(override var x: Double, override var y: Double, override val sp
     }
 
 
-    override fun update(dt: Double) {
+    open fun update(dt: Double) {
         vX += aX * dt
         vY += aY * dt
         x += vX * dt
         y += vY * dt
+        if (y <= 0.0) {
+            vY = 0.0
+            y = 0.0
+        }
     }
 }
