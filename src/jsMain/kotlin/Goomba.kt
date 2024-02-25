@@ -17,22 +17,32 @@ class Goomba(i: Int = 0, j: Int = 0, sprites: List<Sprite> = listOf(), val onDis
             onDisappear()
         }
     }
-override fun onRightSideCollisionWith(that: Entity) {
-    super.onRightSideCollisionWith(that)
+    override fun onRightSideCollisionWith(that: Entity) {
+        super.onRightSideCollisionWith(that)
         isCollidingRight = true
+        if (isWalking){
+            x = that.left - that.width
+            vX = 0.0
+            isFacingForward=false
+        }
     }
 
     override fun onLeftSideCollisionWith(that: Entity) {
         super.onLeftSideCollisionWith(that)
-            isCollidingLeft = true
+        isCollidingLeft = true
+        if (isWalking){
+            x=that.right
+            vX=0.0
+            isFacingForward=true
         }
+    }
 
     fun moveRight() {
         isWalking = true
         isFacingForward = true
         isJumping = false
         sprite.src = GOOMBA_IMAGE
-        x += 0.3
+        x += 0.01
     }
 
     fun moveLeft() {
@@ -40,7 +50,7 @@ override fun onRightSideCollisionWith(that: Entity) {
         isFacingForward = false
         isJumping = false
         sprite.src = GOOMBA_IMAGE
-        x -= 0.3
+        x -= 0.01
     }
 
     override fun update(dt: Double) {
