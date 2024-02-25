@@ -106,6 +106,34 @@ class Hero : Actor(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMA
         }
             walkingAnimation.update(dt)
         }
+
+    override fun onRightSideCollisionWith(that: Entity) {
+        x = that.left - this.width
+        if (vX > 0) {
+            vX = 0.0
+        }
+    }
+
+    override fun onLeftSideCollisionWith(that: Entity) {
+        x = that.right
+        if (vX < 0) {
+            vX = 0.0
+        }
+    }
+    override fun onTopSideCollisionWith(that: Entity) {
+        if (y>0) {
+            y = that.top //марио ходит и прыгает по поверхностям
+            vY = 0.0
+            isStanding=true
+        }
+    }
+    override fun onBottomSideCollisionWith(that: Entity) {
+        if (y>0){
+            y=that.bottom-that.height ////марио бъется головой по поверхностям и прыгает
+            vY=0.0
+            isStanding=false
+        }
+    }
     }
 
 

@@ -12,25 +12,25 @@ override var vX: Double = 0.0
     constructor(i: Int, j: Int, sprite: Sprite) : this(i.toDouble(), j.toDouble(), listOf(sprite))
 
     override fun onRightSideCollisionWith(that: Entity) {
-        x = that.left - this.width
-        if (vX > 0) {
-            vX = 0.0
-        }
+//        x = that.left - this.width
+//        if (vX > 0) {
+//            vX = 0.0
+//        }
     }
 
     override fun onLeftSideCollisionWith(that: Entity) {
-        x = that.right
-        if (vX < 0) {
-            vX = 0.0
-        }
+//        x = that.right
+//        if (vX < 0) {
+//            vX = 0.0
+//        }
     }
 
     override fun onTopSideCollisionWith(that: Entity) {
-        if (y>0) {
-            y = that.top //марио ходит и прыгает по поверхностям
-            vY = 0.0
-            isStanding=true
-        }
+//        if (y>0) {
+//            y = that.top //марио ходит и прыгает по поверхностям
+//            vY = 0.0
+//            isStanding=true
+//        }
     }
     /*
     y = that.top --> верх спрайтов
@@ -38,11 +38,11 @@ override var vX: Double = 0.0
      */
 
     override fun onBottomSideCollisionWith(that: Entity) {
-          if (y>0){
-              y=that.bottom-that.height ////марио бъется головой по поверхностям и прыгает
-              vY=0.0
-              isStanding=false
-          }
+//          if (y>0){
+//              y=that.bottom-that.height ////марио бъется головой по поверхностям и прыгает
+//              vY=0.0
+//              isStanding=false
+//          }
     }
 
 
