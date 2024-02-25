@@ -210,7 +210,9 @@ class Level(
 
         for (entity in staticEntities + dynamicEntities + hero) {
             if (entity.left > windowX - 16 && entity.right < windowX + 32) {
-                actorClass.update(dt)
+                if (entity is Goomba) {
+                    entity.update(dt)
+                }
             }
         }
 
@@ -218,7 +220,6 @@ class Level(
             for (entity2 in staticEntities + dynamicEntities) {
                 if (entity1 != entity2) {
                     entity1.checkCollisionWith(entity2)
-                    goombaClass.update(dt)
                 }
             }
         }

@@ -4,7 +4,9 @@ class Goomba(i: Int = 0, j: Int = 0, sprites: List<Sprite> = listOf(), val onDis
 Внутри колбэка this будет этой гумбой
 свойство isDisappearing для таких ситуаций, когда объект еще есть, но уже не реагирует ни на что
  */
-    private var isWalking = false
+    private var isWalking = true
+    private var isCollidingRight =  false
+    private var isCollidingLeft =  false
     private var isFacingForward = true
     var isJumping = false
 
@@ -15,6 +17,15 @@ class Goomba(i: Int = 0, j: Int = 0, sprites: List<Sprite> = listOf(), val onDis
             onDisappear()
         }
     }
+override fun onRightSideCollisionWith(that: Entity) {
+    super.onRightSideCollisionWith(that)
+        isCollidingRight = true
+    }
+
+    override fun onLeftSideCollisionWith(that: Entity) {
+        super.onLeftSideCollisionWith(that)
+            isCollidingLeft = true
+        }
 
     fun moveRight() {
         isWalking = true
@@ -33,7 +44,7 @@ class Goomba(i: Int = 0, j: Int = 0, sprites: List<Sprite> = listOf(), val onDis
     }
 
     override fun update(dt: Double) {
-        // Добавить здесь логику обновления состояния гумбы
+        super.update(dt) // Добавить здесь логику обновления состояния гумбы
         if (isWalking) {
             if (isFacingForward) {
                 moveRight()
