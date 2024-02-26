@@ -112,12 +112,18 @@ class Hero : Actor(x = 2.0, y = 0.0, sprites = List(7) { Sprite(HERO_FORWARD_IMA
         if (vX > 0) {
             vX = 0.0
         }
+        if (that is Goomba){
+            isSurrendering = true
+        }
     }
 
     override fun onLeftSideCollisionWith(that: Entity) {
         x = that.right
         if (vX < 0) {
             vX = 0.0
+        }
+        if (that is Goomba){
+            isSurrendering = true
         }
     }
     override fun onTopSideCollisionWith(that: Entity) {

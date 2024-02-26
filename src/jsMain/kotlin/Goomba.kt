@@ -8,18 +8,20 @@ class Goomba(i: Int, j: Int, sprites: List<Sprite>, val onDisappear: Goomba.() -
     private var isCollidingRight =  false
     private var isCollidingLeft =  false
     private var isFacingForward = true
-    var isJumping = false
+    private var isJumping = false
+    private var isDisappearing = false
 
-    override fun onTopSideCollisionWith(that: Entity) {
-        super.onTopSideCollisionWith(that)
-        if (that is Hero) {
-            isDisappearing = true
-            onDisappear()
+
+    override fun onBottomSideCollisionWith(that: Entity) {
+        super.onBottomSideCollisionWith(that)
+        if (that is Hero) { // Останавливаем движение гумбы
+            isWalking = false
+            isStanding=true
         }
     }
     override fun onRightSideCollisionWith(that: Entity) {
         super.onRightSideCollisionWith(that)
-        isCollidingRight = true
+        isCollidingRight = false
         if (isWalking){
             x = that.left - that.width
             vX = 0.0
@@ -64,6 +66,16 @@ class Goomba(i: Int, j: Int, sprites: List<Sprite>, val onDisappear: Goomba.() -
         }
     }
 }
+//    override fun onTopSideCollisionWith(that: Entity) { //при столкновении сверху с
+//        super.onTopSideCollisionWith(that)
+//        if (that is Hero) {
+//            isWalking = false // Останавливаем движение гумбы
+//            isStanding=true
+//            isDisappearing = true
+//            onDisappear()
+//            vX = 0.0 // Остановка скорости по оси X
+//        }
+//    }
 
 
 

@@ -8,7 +8,6 @@ open class Entity(open var x: Double, open var y: Double, open val sprites: List
     open var vY: Double = 0.0
     open var aX: Double = 0.0
     var isStanding = false
-    var isDisappearing = false
     open val aY = -GRAVITY_ACCELERATION // на Марио действует сила тяжести, поэтому нужно задать ему ускорение
 
     val width
