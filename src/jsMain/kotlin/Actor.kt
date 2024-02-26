@@ -1,8 +1,8 @@
 import kotlin.math.abs
 import kotlin.math.floor
 
-open class Actor(override var x: Double = 0.0, override var y: Double = 0.0, override val sprites: List<Sprite> = emptyList()) : Entity(x, y, sprites){
-override var vX: Double = 0.0
+open class Actor(override var x: Double, override var y: Double, override val sprites: List<Sprite>) : Entity(x, y, sprites) {
+    override var vX: Double = 0.0
     override var vY: Double = 0.0
     override var aX: Double = 0.0
     override var aY: Double = -GRAVITY_ACCELERATION

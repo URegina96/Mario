@@ -32,8 +32,6 @@ class Level(
     var windowX: Double = 0.0 // начальное положение окна
     private var gameTime: Double = Double.NaN
     val hero = Hero()
-    var actorClass = Actor()
-    val goombaClass = Goomba(0, 0, emptyList()) { }// В данном случае, мы передаем пустую лямбда-функцию в качестве параметра `onDisappear`, чтобы избежать ошибки "No value passed for parameter 'onDisappear'"
     private var backgroundEntities = setOf<Entity>()
     private var staticEntities = setOf<Entity>()
     var dynamicEntities = setOf<Actor>()
