@@ -67,12 +67,8 @@ class Level(
         pandoras.forEach { (i, j) ->  // ящик с вопросом
             addPandoras(i, j)
         }
-        goomba.forEach {
-            val (i, j) = it
-            dynamicEntities += Goomba(i, j, goombaSprites, onDisappear = {
-                dynamicEntities -= this
-                onDisappear()
-            })
+        goomba.forEach { (i, j) ->
+                addGoomba(i, j)
         }
         forwardSteps.forEach { (indices, height) ->   // отдельные списки для ступеней вперед
             val (i, j) = indices
@@ -182,6 +178,12 @@ class Level(
     fun addPandoras(i: Int, j: Int) {  // ящик с вопросом
         staticEntities += Entity(i, j, pandorasSprite[0])
     }
+    fun addGoomba(i: Int, j: Int) {
+        dynamicEntities += Goomba(i, j, goombaSprites, onDisappear = {
+            dynamicEntities -= this
+            onDisappear()
+        })
+    }
 
     fun addForwardSteps(i: Int, j: Int, height: Int) {  //  отдельные списки для ступеней вперед
     }
@@ -234,7 +236,7 @@ val level = Level(
     hills = listOf(0 x 2, 16 x 1, 48 x 2, 64 x 1, 96 x 2, 111 x 1, 144 x 2, 160 x 1, 192 x 2), //холмы  холм/склон
     pipes = listOf(10 x 2, 21 x 3, 24 x 3, 38 x 3, 46 x 4, 163 x 2, 179 x 2), // трубы
     pandoras = listOf(5 x 5, 16 x 3, 21 x 3, 22 x 7, 23 x 3, 78 x 3, 94 x 7, 105 x 3, 108 x 3, 108 x 7, 111 x 3, 129 x 7, 130 x 7, 170 x 3),// ящик с вопросом
-    goomba = listOf(15 x 0),
+    goomba = listOf(15 x 0,  22 x 0, 40 x 0, 50 x 0, 51 x 0, 82 x 8, 84 x 8, 100 x 0, 102 x 0, 114 x 0, 115 x 0, 122 x 0, 123 x 0, 125 x 0, 126 x 0, 170 x 0, 172 x 0),
     forwardSteps = listOf(5 x 4 x 0, 134 x 4 x 0, 148 x 4 x 1, 181 x 8 x 1), //  отдельные списки для ступеней вперед
     backwardSteps = listOf(15 x 4 x 0, 140 x 4 x 0, 155 x 4 x 0), //  отдельные списки для ступеней назад
 )
