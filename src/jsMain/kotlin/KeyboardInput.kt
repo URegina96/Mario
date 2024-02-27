@@ -5,7 +5,7 @@ import org.w3c.dom.events.KeyboardEvent
 object KeyboardInput {
     var pressedKeys: Set<String> = emptySet()
 
-    fun initKeyboardListeners(){
+    fun initKeyboardListeners() {
         document.addEventListener("keydown", { event ->
             val keyboardEvent = event as KeyboardEvent
             pressedKeys += keyboardEvent.code
@@ -20,7 +20,8 @@ object KeyboardInput {
             pressedKeys = emptySet()
         })
     }
-    fun isLeftPressed() =  "ArrowLeft" in pressedKeys
+
+    fun isLeftPressed() = "ArrowLeft" in pressedKeys
 
     fun isRightPressed() = "ArrowRight" in pressedKeys
 

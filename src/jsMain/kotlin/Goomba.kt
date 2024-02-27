@@ -1,9 +1,5 @@
-
 class Goomba(i: Int, j: Int, sprites: List<Sprite> = List(3) { Sprite(GOOMBA_IMAGE, si = 0 + it, sj = 1) }, val onDisappear: Goomba.() -> Unit) : Actor(i,j, sprites){
-/*
-Внутри колбэка this будет этой гумбой
-свойство isDisappearing для таких ситуаций, когда объект еще есть, но уже не реагирует ни на что
- */
+
     private var isWalking = true
     private var isCollidingRight =  false
     private var isCollidingLeft =  false
@@ -13,7 +9,7 @@ class Goomba(i: Int, j: Int, sprites: List<Sprite> = List(3) { Sprite(GOOMBA_IMA
     private var isSurrendering= false
     override fun onBottomSideCollisionWith(that: Entity) {
             super.onBottomSideCollisionWith(that)
-            if (that is Hero) { // Останавливаем движение гумб
+            if (that is Hero) {
                 isWalking = false
                 isStanding=true
                 isSurrendering=true
@@ -66,76 +62,3 @@ class Goomba(i: Int, j: Int, sprites: List<Sprite> = List(3) { Sprite(GOOMBA_IMA
             super.update(dt)
         }
     }
-
-//    override fun onTopSideCollisionWith(that: Entity) { //при столкновении сверху с
-//        super.onTopSideCollisionWith(that)
-//        if (that is Hero) {
-//            isWalking = false // Останавливаем движение гумбы
-//            isStanding=true
-//            isDisappearing = true
-//            onDisappear()
-//            vX = 0.0 // Остановка скорости по оси X
-//        }
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-//private var isWalking = false
-//    private var isFacingForward = true
-//    var isJumping = false
-//
-//    override fun update(dt: Double) {
-//        super.update(dt)
-//
-//        if (!isWalking) {
-//            moveRight()
-//        }
-//
-//        if (isColliding()) {
-//            isFacingForward = !isFacingForward
-//            if (isFacingForward) {
-//                moveRight()
-//            } else {
-//                moveLeft()
-//            }
-//        }
-//    }
-//
-//    private fun isColliding(): Boolean {
-//        // Логика проверки столкновений с преградами или другими гумбами
-//        return false
-//    }
-//
-//    override fun onTopSideCollisionWith(that: Entity) {
-//        super.onTopSideCollisionWith(that)
-//        if (that is Hero) {
-//            isDisappearing = true
-//            onDisappear()
-//        }
-//    }
-//
-//    fun moveRight() {
-//        isWalking = true
-//        isFacingForward = true
-//        isJumping = false
-//        sprite.src = GOOMBA_IMAGE
-//        x += 0.3
-//    }
-//
-//    fun moveLeft() {
-//        isWalking = true
-//        isFacingForward = false
-//        isJumping = false
-//        sprite.src = GOOMBA_IMAGE
-//        x -= 0.3
-//    }
-//}
